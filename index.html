@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>FRESHLY & PREMIER - Digital Menu</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --bg-dark: #0c0e13;
+    --bg-panel: #151922;
+    --bg-card: #1c212d;
+    --bg-input: #10131a;
+    --gold-light: #fcf6ba;
+    --gold-main: #d4af37;
+    --gold-dark: #aa771c;
+    --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 30%, #d4af37 55%, #fbf5b7 80%, #aa771c 100%);
+    --border-gold: rgba(212, 175, 55, 0.35);
+    --border-subtle: #2a303f;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --success: #10b981;
+    --danger: #ef4444;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    background-color: #07080b;
+    color: var(--text-main);
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .phone-frame {
+    width: 100%;
+    max-width: 430px;
+    height: 100%;
+    height: 100dvh;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 3px; height: 3px; }
+  ::-webkit-scrollbar-track { background: var(--bg-dark); }
+  ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+
+  /* Header */
+  .app-header {
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 5px 8px;
+    flex-shrink: 0;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  .brand-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .brand-logo-wrap svg, .brand-logo-wrap img {
+    height: 26px;
+    width: auto;
+    border-radius: 6px;
+    border: 1px solid var(--border-gold);
+    display: block;
+  }
+
+  .brand-title {
+    font-size: 0.78rem;
+    font-weight: 900;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .brand-sub {
+    font-size: 0.48rem;
+    color: var(--text-muted);
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .selector-pill {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    padding: 2px 4px;
+    border-radius: 6px;
+    font-size: 0.62rem;
+  }
+
+  .selector-pill select {
+    background: transparent;
+    color: var(--gold-light);
+    border: none;
+    font-weight: 700;
+    font-size: 0.62rem;
+    outline: none;
+    cursor: pointer;
+  }
+  .selector-pill select option { background: var(--bg-panel); color: var(--text-main); }
+
+  /* Permanent QR Banner Widget */
+  .permanent-qr-bar {
+    background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(28,33,45,0.9));
+    border-bottom: 1px solid var(--border-gold);
+    padding: 3px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .permanent-qr-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .permanent-qr-thumb {
+    background: #fff;
+    padding: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--gold-main);
+  }
+  #permanentQrcode img { display: block; width: 20px !important; height: 20px !important; }
+
+  /* Main Workspace */
+  .main-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+  }
+
+  .input-field {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    padding: 5px 7px;
+    border-radius: 6px;
+    font-size: 0.74rem;
+    outline: none;
+  }
+  .input-field:focus { border-color: var(--gold-main); }
+
+  .category-strip {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    flex-shrink: 0;
+  }
+
+  .cat-chip {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-main);
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .cat-chip.active {
+    background: var(--gold-gradient);
+    color: #0b0d12;
+    border-color: transparent;
+  }
+
+  /* Items Grid */
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    padding-bottom: 6px;
+  }
+
+  .item-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    transition: transform 0.12s;
+  }
+  .item-card:active { transform: scale(0.97); }
+  .item-card.special-item {
+    border: 1.5px solid var(--gold-main);
+    background: linear-gradient(180deg, rgba(212,175,55,0.14) 0%, var(--bg-card) 100%);
+  }
+
+  .special-ribbon {
+    position: absolute;
+    top: 3px;
+    inset-inline-start: 3px;
+    background: var(--gold-gradient);
+    color: #000;
+    font-size: 0.48rem;
+    font-weight: 900;
+    padding: 1px 3px;
+    border-radius: 3px;
+    z-index: 2;
+  }
+
+  .item-thumb {
+    width: 100%;
+    height: 65px;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #10131a;
+    margin-bottom: 3px;
+  }
+  .item-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .item-name {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2px;
+    line-height: 1.15;
+  }
+
+  .item-price-tag {
+    text-align: center;
+    font-weight: 900;
+    font-size: 0.74rem;
+    color: var(--gold-main);
+    background: rgba(0,0,0,0.4);
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
+  /* Cart Panel */
+  .cart-panel {
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border-gold);
+    border-radius: 10px 10px 0 0;
+    padding: 5px 8px;
+    flex-shrink: 0;
+  }
+
+  .cart-list {
+    max-height: 42px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 3px;
+  }
+
+  .cart-empty {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2px;
+    font-size: 0.68rem;
+  }
+
+  .cart-row {
+    background: var(--bg-card);
+    border-radius: 5px;
+    padding: 2px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.66rem;
+  }
+
+  .qty-btn {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-input);
+    color: var(--text-main);
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .totals-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 900;
+    font-size: 0.76rem;
+    color: var(--gold-main);
+    margin-bottom: 3px;
+    padding-top: 2px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .btn {
+    padding: 5px 7px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.7rem;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .btn-gold { background: var(--gold-gradient); color: #0b0d12; width: 100%; }
+  .btn-dark { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-subtle); }
+  .btn-danger { background: rgba(239,68,68,0.18); color: #f87171; border: 1px solid rgba(239,68,68,0.4); }
+
+  /* Bottom Navigation Bar - Fully visible */
+  .nav-bar {
+    background: #10131a;
+    border-top: 1.5px solid var(--gold-main);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px 8px;
+    flex-shrink: 0;
+    z-index: 200;
+    min-height: 46px;
+  }
+
+  .nav-btn {
+    background: var(--bg-card);
+    color: var(--gold-light);
+    border: 1px solid var(--border-gold);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .nav-btn.active {
+    background: var(--gold-gradient);
+    color: #0b0d12;
+    border-color: transparent;
+  }
+
+  /* Modal */
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--gold-main);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 350px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 14px;
+    text-align: center;
+  }
+  #modalQrcode {
+    background: #fff;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 8px;
+    margin: 8px 0;
+  }
+
+  .admin-item-row {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 7px;
+    padding: 6px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: start;
+    font-size: 0.7rem;
+  }
+  .admin-form-group {
+    text-align: start;
+    margin-bottom: 6px;
+  }
+  .admin-form-group label {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--gold-light);
+    margin-bottom: 2px;
+  }
+  .receipt-box {
+    background: #fff;
+    color: #111;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: start;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    border: 2px dashed #d4af37;
+  }
+</style>
+</head>
+<body>
+
+  <div class="phone-frame">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="brand-box">
+          <div id="headerLogoContainer" class="brand-logo-wrap"></div>
+          <div>
+            <div class="brand-title">FRESHLY &amp; PREMIER</div>
+            <div class="brand-sub">PREMIER BEVERIDGE CO</div>
+          </div>
+        </div>
+
+        <div class="header-controls">
+          <div class="selector-pill" title="Language">
+            <span>🌐</span>
+            <select id="langSelect">
+              <option value="en" selected>🇬🇧 EN</option>
+              <option value="ar">🇪🇬 AR</option>
+              <option value="de">🇩🇪 DE</option>
+              <option value="fr">🇫🇷 FR</option>
+              <option value="ru">🇷🇺 RU</option>
+            </select>
+          </div>
+          <div class="selector-pill" title="Currency">
+            <span>💱</span>
+            <select id="currencySelect">
+              <option value="EGP">🇪🇬 EGP</option>
+              <option value="EUR">🇪🇺 EUR</option>
+              <option value="USD">🇺🇸 USD</option>
+              <option value="GBP">🇬🇧 GBP</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Permanent Prominent QR Banner Widget -->
+    <div class="permanent-qr-bar">
+      <div class="permanent-qr-info">
+        <div class="permanent-qr-thumb" onclick="openQRModal()" title="Tap to view full QR code">
+          <div id="permanentQrcode"></div>
+        </div>
+        <div>
+          <div style="font-size:0.68rem; font-weight:800; color:var(--gold-light);" data-i18n="qrBannerTitle">📱 Public Menu QR</div>
+          <div style="font-size:0.52rem; color:var(--text-muted);" data-i18n="qrBannerSub">Scan with camera to browse &amp; order</div>
+        </div>
+      </div>
+      <button class="btn btn-dark" style="padding:2px 6px; font-size:0.6rem;" onclick="openQRModal()" data-i18n="qrShowBtn">Show QR</button>
+    </div>
+
+    <!-- Main Workspace -->
+    <main class="main-content">
+      <div>
+        <input type="text" id="menuSearchInput" class="input-field" data-i18n-placeholder="searchPlaceholder" placeholder="Search drinks or items...">
+      </div>
+      <div id="menuCategoryStrip" class="category-strip"></div>
+      <div id="menuItemsGrid" class="items-grid"></div>
+    </main>
+
+    <!-- Cart Panel -->
+    <div class="cart-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+        <span style="font-size:0.72rem; font-weight:800; color:var(--gold-main);" data-i18n="cartTitle">Order Cart</span>
+        <span id="cartItemsCountDisplay" style="font-size:0.65rem; font-weight:800; color:var(--gold-light);">0 🥤</span>
+      </div>
+      <div style="margin-bottom:3px;">
+        <input type="text" id="customerTableInput" class="input-field" style="border: 1.5px solid var(--gold-main); background: rgba(212,175,55,0.08); font-weight:700;" data-i18n-placeholder="tablePlaceholder" placeholder="📍 Enter table #, room #, or your name...">
+      </div>
+
+      <div id="cartItemsList" class="cart-list"></div>
+
+      <div class="totals-row">
+        <span data-i18n="grandTotalLabel">Grand Total:</span>
+        <span id="grandTotalDisplay">0 EGP</span>
+      </div>
+
+      <button id="sendOrderBtn" class="btn btn-gold" data-i18n="sendOrderBtn">🧾 Confirm &amp; View Order Summary</button>
+    </div>
+
+    <!-- Bottom Navigation Bar - Fully visible -->
+    <nav class="nav-bar">
+      <button class="nav-btn active" onclick="openQRModal()"><span>📱</span><span data-i18n="navQr">QR Code</span></button>
+      <button class="nav-btn" onclick="openAdminModal()"><span>⚙️</span><span data-i18n="navAdmin">Manage Menu</span></button>
+      <button class="nav-btn" id="contactNavBtn" style="display:none;" onclick="openInfoModal()"><span>📞</span><span data-i18n="navContact">Contact</span></button>
+    </nav>
+
+    <!-- QR Modal -->
+    <div id="qrModal" class="modal-backdrop" onclick="closeModal('qrModal')">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-main); font-size:0.9rem; margin-bottom:5px;" data-i18n="qrModalTitle">Customer Menu QR</h3>
+        <div id="modalQrcode"></div>
+        <p style="color:var(--text-muted); font-size:0.68rem; margin-bottom:6px;" data-i18n="qrModalDesc">Scan with your phone camera to view menu &amp; order</p>
+        <div style="background:var(--bg-input); padding:5px; border-radius:6px; border:1px solid var(--border-subtle); font-size:0.62rem; color:var(--gold-light); word-break:break-all; margin-bottom:8px;" id="shareUrlBox"></div>
+        <button class="btn btn-gold" style="margin-bottom:5px;" onclick="copyShareLink()">📋 Copy Menu Link</button>
+        <button class="btn btn-dark" style="width:100%;" onclick="closeModal('qrModal')" data-i18n="closeBtn">Close</button>
+      </div>
+    </div>
+
+    <!-- Order Receipt / Confirmation Modal -->
+    <div id="orderModal" class="modal-backdrop" onclick="closeModal('orderModal')">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-main); font-size:0.9rem; margin-bottom:5px;" data-i18n="orderSummaryTitle">✅ Your Order Summary</h3>
+        <div id="receiptContent" class="receipt-box"></div>
+        <div id="dynamicContactActionWrap" style="margin-bottom:5px;"></div>
+        <button class="btn btn-gold" style="margin-bottom:5px;" onclick="copyOrderSummary()" data-i18n="copyOrderBtn">📋 Copy Order Details</button>
+        <button class="btn btn-dark" style="width:100%;" onclick="finishAndClearCart()" data-i18n="doneOrderBtn">Done — Clear Cart</button>
+      </div>
+    </div>
+
+    <!-- Admin Edit Modal -->
+    <div id="adminModal" class="modal-backdrop" onclick="closeModal('adminModal')">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-main); font-size:0.9rem; margin-bottom:5px;">⚙️ إدارة المنيو والإعدادات / Menu Manager</h3>
+        <p style="color:var(--text-muted); font-size:0.62rem; margin-bottom:8px;">عدّل الأصناف أو أضف الصور والروابط، ثم اضغط التحميل لرفعه على الاستضافة.</p>
+
+        <div style="background:var(--bg-card); padding:8px; border-radius:8px; border:1px solid var(--border-subtle); margin-bottom:8px;">
+          <div style="font-size:0.72rem; font-weight:800; color:var(--gold-light); margin-bottom:4px; text-align:start;">📞 إعدادات التواصل (اختياري)</div>
+          <div class="admin-form-group">
+            <label>رقم واتساب لاستلام الطلبات:</label>
+            <input type="text" id="cfgWhatsapp" class="input-field" placeholder="مثال: 00201119843222">
+          </div>
+          <div class="admin-form-group">
+            <label>أرقام الهاتف للعرض:</label>
+            <input type="text" id="cfgPhones" class="input-field" placeholder="اتركه فارغاً لإخفائه">
+          </div>
+          <div class="admin-form-group">
+            <label>العنوان:</label>
+            <input type="text" id="cfgAddress" class="input-field" placeholder="اتركه فارغاً لإخفائه">
+          </div>
+          <div class="admin-form-group">
+            <label>البريد الإلكتروني أو فيسبوك:</label>
+            <input type="text" id="cfgSocial" class="input-field" placeholder="اتركه فارغاً لإخفائه">
+          </div>
+          <button class="btn btn-dark" style="width:100%; border-color:var(--gold-main); color:var(--gold-light);" onclick="saveContactSettings()">💾 حفظ إعدادات التواصل</button>
+        </div>
+
+        <div style="background:var(--bg-card); padding:8px; border-radius:8px; border:1px solid var(--border-gold); margin-bottom:8px;">
+          <div style="font-size:0.72rem; font-weight:800; color:var(--gold-light); margin-bottom:4px; text-align:start;">➕ إضافة / تعديل صنف وصورته</div>
+          <input type="hidden" id="editItemId">
+          <div class="admin-form-group">
+            <label>القسم / Category:</label>
+            <select id="editItemCat" class="input-field"></select>
+          </div>
+          <div class="admin-form-group">
+            <label>الاسم بالعربية:</label>
+            <input type="text" id="editNameAr" class="input-field" placeholder="مثال: عصير مانجو فريش">
+          </div>
+          <div class="admin-form-group">
+            <label>الاسم بالإنجليزية / English Name:</label>
+            <input type="text" id="editNameEn" class="input-field" placeholder="Example: Fresh Mango">
+          </div>
+          <div class="admin-form-group">
+            <label>صورة الصنف (اختياري - اختر من الهاتف أو ضع رابط):</label>
+            <input type="file" id="editImageFile" accept="image/*" class="input-field" style="font-size:0.65rem; padding:4px;">
+            <input type="text" id="editImageUrl" class="input-field" style="margin-top:4px;" placeholder="أو ضع رابط الصورة المباشر هنا...">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:5px; margin-bottom:6px;">
+            <div class="admin-form-group" style="margin:0;">
+              <label>السعر (EGP):</label>
+              <input type="number" id="editPriceEGP" class="input-field" placeholder="120">
+            </div>
+            <div class="admin-form-group" style="margin:0;">
+              <label>السعر (EUR €):</label>
+              <input type="number" step="0.5" id="editPriceEUR" class="input-field" placeholder="4">
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:5px; margin-bottom:6px; font-size:0.7rem;">
+            <input type="checkbox" id="editItemSpecial">
+            <label for="editItemSpecial" style="color:var(--gold-main); font-weight:700;">★ تمييز الصنف (Best Selling)</label>
+          </div>
+          <button class="btn btn-gold" onclick="saveAdminItem()">💾 حفظ الصنف</button>
+        </div>
+
+        <div style="text-align:start; font-size:0.72rem; font-weight:800; color:var(--gold-light); margin-bottom:4px;">📋 الأصناف الحالية (<span id="adminTotalCount">0</span>):</div>
+        <div id="adminItemsList" style="max-height:120px; overflow-y:auto; margin-bottom:8px;"></div>
+
+        <button class="btn btn-gold" style="margin-bottom:5px; background: linear-gradient(135deg, #10b981, #059669); color:#fff;" onclick="exportUpdatedHTML()">⬇️ تحميل ملف index.html المحدّث</button>
+        <button class="btn btn-dark" style="width:100%;" onclick="closeModal('adminModal')">Close / إغلاق</button>
+      </div>
+    </div>
+
+    <!-- Contact Info Modal -->
+    <div id="infoModal" class="modal-backdrop" onclick="closeModal('infoModal')">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <h3 style="color:var(--gold-main); font-size:0.9rem; margin-bottom:6px;">FRESHLY &amp; PREMIER</h3>
+        <div id="dynamicInfoBody" style="text-align:start; background:var(--bg-card); padding:8px; border-radius:8px; font-size:0.72rem; line-height:1.5; margin-bottom:8px;"></div>
+        <button class="btn btn-dark" style="width:100%;" onclick="closeModal('infoModal')">Close</button>
+      </div>
+    </div>
+
+  </div>
+
+<script id="menuDataScript">
+const INITIAL_MENU_DATA = {
+  contact: { whatsapp: "", phones: "", address: "", social: "" },
+  categories: [
+    { id: 'fresh_juice', names: { ar: 'عصائر فريش', en: 'Fresh Juices', de: 'Frische Säfte', fr: 'Jus Frais', ru: 'Свежие соки' } },
+    { id: 'milkshake', names: { ar: 'ميلك شيك', en: 'Milkshake', de: 'Milchshake', fr: 'Milkshake', ru: 'Милкшейк' } },
+    { id: 'smoothie', names: { ar: 'سموزي', en: 'Smoothie', de: 'Smoothie', fr: 'Smoothie', ru: 'Смузи' } },
+    { id: 'mojito', names: { ar: 'موهيتو', en: 'Mojito', de: 'Mojito', fr: 'Mojito', ru: 'Мохито' } },
+    { id: 'iced_coffee', names: { ar: 'آيس كوفي', en: 'Iced Coffee', de: 'Eiskaffee', fr: 'Café Glacé', ru: 'Айс Кофе' } },
+    { id: 'frappe', names: { ar: 'فرابيه', en: 'Frappe', de: 'Frappé', fr: 'Frappé', ru: 'Фраппе' } },
+    { id: 'matcha', names: { ar: 'الماتشا', en: 'Matcha', de: 'Matcha', fr: 'Matcha', ru: 'Матча' } },
+    { id: 'iced_tea', names: { ar: 'آيس تي', en: 'Iced Tea', de: 'Eistee', fr: 'Thé Glacé', ru: 'Айс Ти' } },
+    { id: 'fruit_platters', names: { ar: 'أطباق فاكهة فريش', en: 'Fruit Platters', de: 'Obstteller', fr: 'Assiettes Fruits', ru: 'Фруктовые тарелки' } },
+    { id: 'hot_drinks', names: { ar: 'مشروبات ساخنة', en: 'Hot Drinks', de: 'Heißgetränke', fr: 'Boissons Chaudes', ru: 'Горячие напитки' } },
+    { id: 'soft_drinks', names: { ar: 'سوفت درينكس', en: 'Soft Drinks', de: 'Softdrinks', fr: 'Boissons Fraîches', ru: 'Напитки' } },
+    { id: 'energy', names: { ar: 'الطاقة والانتعاش', en: 'Energy & Refreshment', de: 'Energie', fr: 'Énergie', ru: 'Энергия' } }
+  ],
+  items: [
+    { id: 'fj_mango', categoryId: 'fresh_juice', special: true, priceEGP: 120, priceEUR: 4, image: '', names: { ar: 'عصير مانجو فريش', en: 'Fresh Mango Juice', de: 'Frischer Mangosaft', fr: 'Jus de Mangue Frais', ru: 'Свежий сок манго' } },
+    { id: 'fj_strawberry', categoryId: 'fresh_juice', special: false, priceEGP: 110, priceEUR: 3.5, image: '', names: { ar: 'عصير فراولة فريش', en: 'Fresh Strawberry Juice', de: 'Frischer Erdbeersaft', fr: 'Jus de Fraise Frais', ru: 'Клубничный фреш' } },
+    { id: 'fj_orange', categoryId: 'fresh_juice', special: false, priceEGP: 100, priceEUR: 3.5, image: '', names: { ar: 'عصير برتقال فريش', en: 'Fresh Orange Juice', de: 'Frischer Orangensaft', fr: 'Jus d’Orange Frais', ru: 'Апельсиновый фреш' } },
+    { id: 'fj_guava', categoryId: 'fresh_juice', special: false, priceEGP: 100, priceEUR: 3.5, image: '', names: { ar: 'عصير جوافة فريش', en: 'Fresh Guava Juice', de: 'Frischer Guavensaft', fr: 'Jus de Goyave Frais', ru: 'Сок гуавы' } },
+    { id: 'fj_lemon_mint', categoryId: 'fresh_juice', special: true, priceEGP: 95, priceEUR: 3, image: '', names: { ar: 'ليمون بالنعناع الفريش', en: 'Fresh Lemon Mint', de: 'Zitrone-Minze', fr: 'Citron Menthe Frais', ru: 'Лимон с мятой' } },
+    { id: 'fj_watermelon', categoryId: 'fresh_juice', special: false, priceEGP: 100, priceEUR: 3.5, image: '', names: { ar: 'عصير بطيخ فريش', en: 'Fresh Watermelon Juice', de: 'Wassermelonensaft', fr: 'Jus de Pastèque', ru: 'Арбузный фреш' } },
+    { id: 'fj_avocado', categoryId: 'fresh_juice', special: true, priceEGP: 160, priceEUR: 5, image: '', names: { ar: 'أفوكادو بالعسل والمكسرات', en: 'Avocado Honey & Nuts', de: 'Avocado Honig & Nüsse', fr: 'Avocat Miel & Noix', ru: 'Авокадо с медом и орехами' } },
+    { id: 'fj_cocktail', categoryId: 'fresh_juice', special: true, priceEGP: 140, priceEUR: 4.5, image: '', names: { ar: 'كوكتيل فريشلي الخاص', en: 'Freshly Special Cocktail', de: 'Freshly Spezial-Cocktail', fr: 'Cocktail Spécial Freshly', ru: 'Фирменный коктейль Freshly' } },
+    { id: 'ms_vanilla', categoryId: 'milkshake', special: false, priceEGP: 130, priceEUR: 4, image: '', names: { ar: 'ميلك شيك فانيليا', en: 'Vanilla Milkshake', de: 'Vanille Milchshake', fr: 'Milkshake Vanille', ru: 'Ванильный милкшейк' } },
+    { id: 'ms_chocolate', categoryId: 'milkshake', special: false, priceEGP: 135, priceEUR: 4.5, image: '', names: { ar: 'ميلك شيك شوكولاتة', en: 'Chocolate Milkshake', de: 'Schoko Milchshake', fr: 'Milkshake Chocolat', ru: 'Шоколадный милкшейк' } },
+    { id: 'ms_oreo', categoryId: 'milkshake', special: true, priceEGP: 150, priceEUR: 5, image: '', names: { ar: 'ميلك شيك أوريو', en: 'Oreo Milkshake', de: 'Oreo Milchshake', fr: 'Milkshake Oreo', ru: 'Милкшейк Орео' } },
+    { id: 'ms_lotus', categoryId: 'milkshake', special: true, priceEGP: 160, priceEUR: 5, image: '', names: { ar: 'ميلك شيك لوتس', en: 'Lotus Biscoff Shake', de: 'Lotus Milchshake', fr: 'Milkshake Lotus', ru: 'Милкшейк Лотус' } },
+    { id: 'sm_mango_passion', categoryId: 'smoothie', special: true, priceEGP: 145, priceEUR: 4.5, image: '', names: { ar: 'سموزي مانجو باشن فروت', en: 'Mango Passion Smoothie', de: 'Mango-Maracuja Smoothie', fr: 'Smoothie Mangue Passion', ru: 'Смузи Манго-Маракуйя' } },
+    { id: 'sm_berry_mix', categoryId: 'smoothie', special: false, priceEGP: 150, priceEUR: 5, image: '', names: { ar: 'سموزي ميكس بيري', en: 'Mixed Berry Smoothie', de: 'Beeren-Mix Smoothie', fr: 'Smoothie Fruits Rouges', ru: 'Ягодный смузи' } },
+    { id: 'mj_classic', categoryId: 'mojito', special: false, priceEGP: 115, priceEUR: 4, image: '', names: { ar: 'موهيتو كلاسيك', en: 'Classic Mojito', de: 'Klassischer Mojito', fr: 'Mojito Classique', ru: 'Классический Мохито' } },
+    { id: 'mj_blue', categoryId: 'mojito', special: true, priceEGP: 130, priceEUR: 4.5, names: { ar: 'بلو هاواي موهيتو', en: 'Blue Ocean Mojito', de: 'Blue Ocean Mojito', fr: 'Mojito Bleu Océan', ru: 'Голубой Мохито' } },
+    { id: 'ic_latte', categoryId: 'iced_coffee', special: false, priceEGP: 115, priceEUR: 4, image: '', names: { ar: 'آيس لاتيه', en: 'Iced Caffè Latte', de: 'Eis-Latte', fr: 'Latte Glacé', ru: 'Айс Латте' } },
+    { id: 'ic_spanish', categoryId: 'iced_coffee', special: true, priceEGP: 135, priceEUR: 4.5, names: { ar: 'سبانيش لاتيه مثلج', en: 'Iced Spanish Latte', de: 'Spanischer Eislatte', fr: 'Latte Espagnol Glacé', ru: 'Айс Испанский Латте' } },
+    { id: 'hd_espresso', categoryId: 'hot_drinks', special: false, priceEGP: 70, priceEUR: 2.5, image: '', names: { ar: 'إسبريسو سينجل / دبل', en: 'Espresso Single / Double', de: 'Espresso', fr: 'Expresso', ru: 'Эспрессо' } },
+    { id: 'hd_cappuccino', categoryId: 'hot_drinks', special: false, priceEGP: 105, priceEUR: 3.5, image: '', names: { ar: 'كابتشينو', en: 'Cappuccino', de: 'Cappuccino', fr: 'Cappuccino', ru: 'Капучино' } }
+  ]
+};
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const I18N = {
+    ar: {
+      searchPlaceholder: "ابحث عن مشروب أو صنف...",
+      allCategories: "الكل",
+      cartTitle: "سلة الطلبات",
+      tablePlaceholder: "📍 أدخل رقم الطاولة أو الغرفة أو الاسم...",
+      grandTotalLabel: "الإجمالي النهائي:",
+      sendOrderBtn: "🧾 تأكيد وعرض ملخص الطلب",
+      emptyCart: "السلة فارغة — اضغط على الصنف للإضافة",
+      qrBannerTitle: "📱 باركود المنيو العام",
+      qrBannerSub: "امسح الكود بكاميرا الهاتف للتصفح والطلب",
+      qrShowBtn: "عرض الكود",
+      navQr: "الباركود",
+      navAdmin: "إدارة المنيو",
+      navContact: "تواصل معنا",
+      qrModalTitle: "باركود المنيو للعملاء",
+      qrModalDesc: "امسح الكود بالكاميرا لتصفح المنيو والطلب فوراً",
+      closeBtn: "إغلاق",
+      orderSummaryTitle: "✅ ملخص الطلب الجاهز",
+      copyOrderBtn: "📋 نسخ تفاصيل الطلب",
+      doneOrderBtn: "تم — تفريغ السلة",
+      alertEmptyCart: "السلة فارغة! اختر مشروبك أولاً.",
+      alertNoTable: "⚠️ يرجى إدخال رقم الطاولة أو الغرفة أو الاسم!"
+    },
+    en: {
+      searchPlaceholder: "Search drinks or items...",
+      allCategories: "All",
+      cartTitle: "Order Cart",
+      tablePlaceholder: "📍 Enter table #, room #, or your name...",
+      grandTotalLabel: "Grand Total:",
+      sendOrderBtn: "🧾 Confirm & View Order Summary",
+      emptyCart: "Cart is empty — tap any item to add",
+      qrBannerTitle: "📱 Public Menu QR",
+      qrBannerSub: "Scan with camera to browse & order",
+      qrShowBtn: "Show QR",
+      navQr: "QR Code",
+      navAdmin: "Manage Menu",
+      navContact: "Contact",
+      qrModalTitle: "Customer Menu QR",
+      qrModalDesc: "Scan with your phone camera to view menu & order",
+      closeBtn: "Close",
+      orderSummaryTitle: "✅ Your Order Summary",
+      copyOrderBtn: "📋 Copy Order Details",
+      doneOrderBtn: "Done — Clear Cart",
+      alertEmptyCart: "Your cart is empty!",
+      alertNoTable: "⚠️ Please enter your table, room number, or name!"
+    },
+    de: {
+      searchPlaceholder: "Getränk suchen...",
+      allCategories: "Alle",
+      cartTitle: "Warenkorb",
+      tablePlaceholder: "📍 Tisch-, Zimmernummer oder Name...",
+      grandTotalLabel: "Gesamtsumme:",
+      sendOrderBtn: "🧾 Bestellung anzeigen",
+      emptyCart: "Warenkorb ist leer — Artikel antippen",
+      qrBannerTitle: "📱 Menü QR-Code",
+      qrBannerSub: "Mit Kamera scannen zum Bestellen",
+      qrShowBtn: "QR zeigen",
+      navQr: "QR-Code",
+      navAdmin: "Menü verwalten",
+      navContact: "Kontakt",
+      qrModalTitle: "Menü QR-Code",
+      qrModalDesc: "Scannen Sie mit der Kamera zum Bestellen",
+      closeBtn: "Schließen",
+      orderSummaryTitle: "✅ Bestellübersicht",
+      copyOrderBtn: "📋 Bestellung kopieren",
+      doneOrderBtn: "Fertig — Warenkorb leeren",
+      alertEmptyCart: "Warenkorb ist leer!",
+      alertNoTable: "⚠️ Bitte Tisch- oder Zimmernummer eingeben!"
+    },
+    fr: {
+      searchPlaceholder: "Rechercher une boisson...",
+      allCategories: "Tout",
+      cartTitle: "Panier",
+      tablePlaceholder: "📍 Numéro de table, chambre ou nom...",
+      grandTotalLabel: "Total général :",
+      sendOrderBtn: "🧾 Confirmer la commande",
+      emptyCart: "Panier vide — touchez un article",
+      qrBannerTitle: "📱 QR Code du Menu",
+      qrBannerSub: "Scannez pour parcourir et commander",
+      qrShowBtn: "Afficher",
+      navQr: "QR Code",
+      navAdmin: "Gérer le menu",
+      navContact: "Contact",
+      qrModalTitle: "QR Code du Menu",
+      qrModalDesc: "Scannez avec votre caméra pour commander",
+      closeBtn: "Fermer",
+      orderSummaryTitle: "✅ Résumé de la commande",
+      copyOrderBtn: "📋 Copier la commande",
+      doneOrderBtn: "Terminer — Vider le panier",
+      alertEmptyCart: "Votre panier est vide !",
+      alertNoTable: "⚠️ Veuillez entrer votre numéro de table ou chambre !"
+    },
+    ru: {
+      searchPlaceholder: "Поиск напитка...",
+      allCategories: "Все",
+      cartTitle: "Корзина",
+      tablePlaceholder: "📍 Номер стола, комнаты или имя...",
+      grandTotalLabel: "Итого:",
+      sendOrderBtn: "🧾 Подтвердить заказ",
+      emptyCart: "Корзина пуста — нажмите на товар",
+      qrBannerTitle: "📱 QR код Меню",
+      qrBannerSub: "Сканируйте камерой для заказа",
+      qrShowBtn: "Показать QR",
+      navQr: "QR код",
+      navAdmin: "Управление",
+      navContact: "Контакты",
+      qrModalTitle: "QR код Меню",
+      qrModalDesc: "Сканируйте камерой телефона для заказа",
+      closeBtn: "Закрыть",
+      orderSummaryTitle: "✅ Детали заказа",
+      copyOrderBtn: "📋 Скопировать заказ",
+      doneOrderBtn: "Готово — Очистить корзину",
+      alertEmptyCart: "Корзина пуста!",
+      alertNoTable: "⚠️ Пожалуйста, введите номер стола или комнаты!"
+    }
+  };
+
+  const CURRENCY_SYMBOLS = { EGP: 'EGP', EUR: '€', USD: '$', GBP: '£' };
+
+  const savedContact = JSON.parse(localStorage.getItem('fp_public_contact_v6') || 'null');
+  let menuState = {
+    lang: localStorage.getItem('fp_lang_v6') || 'en',
+    currency: localStorage.getItem('fp_currency_v6') || 'EGP',
+    contact: savedContact || INITIAL_MENU_DATA.contact || { whatsapp: "", phones: "", address: "", social: "" },
+    categories: JSON.parse(localStorage.getItem('fp_public_cats_v6')) || INITIAL_MENU_DATA.categories,
+    items: JSON.parse(localStorage.getItem('fp_public_items_v6')) || INITIAL_MENU_DATA.items,
+    cart: [],
+    selectedCat: 'all',
+    searchQuery: '',
+    lastOrderText: ''
+  };
+
+  function hasAnyContact() {
+    const c = menuState.contact || {};
+    return Boolean((c.whatsapp && c.whatsapp.trim()) || (c.phones && c.phones.trim()) || (c.address && c.address.trim()) || (c.social && c.social.trim()));
+  }
+
+  function updateContactVisibility() {
+    const navBtn = document.getElementById('contactNavBtn');
+    if (hasAnyContact()) {
+      navBtn.style.display = 'flex';
+    } else {
+      navBtn.style.display = 'none';
+    }
+  }
+
+  function makeDrinkImage(label, catId) {
+    const colors = {
+      fresh_juice: '#f59e0b',
+      milkshake: '#ec4899',
+      smoothie: '#8b5cf6',
+      mojito: '#10b981',
+      iced_coffee: '#d97706',
+      frappe: '#b45309',
+      matcha: '#22c55e',
+      iced_tea: '#eab308',
+      fruit_platters: '#f97316',
+      hot_drinks: '#ef4444',
+      soft_drinks: '#3b82f6',
+      energy: '#06b6d4'
+    };
+    const accent = colors[catId] || '#d4af37';
+    const clean = String(label || 'FRESHLY').replace(/[<>&'"]/g, '').substring(0, 20);
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="140" viewBox="0 0 220 140">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#1e2433"/>
+          <stop offset="100%" stop-color="#0f1219"/>
+        </linearGradient>
+      </defs>
+      <rect width="220" height="140" fill="url(#bg)"/>
+      <circle cx="110" cy="52" r="32" fill="${accent}" opacity="0.18"/>
+      <path d="M94 32 L126 32 L121 74 L99 74 Z" fill="${accent}" opacity="0.38" stroke="${accent}" stroke-width="2.5"/>
+      <path d="M110 32 L117 16 L128 13" fill="none" stroke="#fcf6ba" stroke-width="2.5" stroke-linecap="round"/>
+      <ellipse cx="110" cy="32" rx="16" ry="3.5" fill="${accent}" opacity="0.8"/>
+      <text x="110" y="110" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">${clean}</text>
+    </svg>`;
+    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  }
+
+  function t(key) {
+    return (I18N[menuState.lang] && I18N[menuState.lang][key]) || I18N.en[key] || key;
+  }
+
+  function applyTranslations() {
+    const isRtl = menuState.lang === 'ar';
+    document.documentElement.lang = menuState.lang;
+    document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (t(k)) el.textContent = t(k);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const k = el.getAttribute('data-i18n-placeholder');
+      if (t(k)) el.placeholder = t(k);
+    });
+  }
+
+  function renderLogos() {
+    const defaultLogo = `<svg viewBox="0 0 220 84" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="g3d" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#aa771c"/><stop offset="30%" stop-color="#fcf6ba"/>
+      <stop offset="60%" stop-color="#d4af37"/><stop offset="100%" stop-color="#996515"/></linearGradient></defs>
+      <rect width="220" height="84" rx="10" fill="#151922"/>
+      <text x="24" y="60" font-family="Georgia, serif" font-weight="900" font-size="34" fill="url(#g3d)">FRESHLY</text>
+      <text x="95" y="73" font-family="sans-serif" font-weight="800" font-size="8" letter-spacing="1" fill="url(#g3d)">PREMIER BEVERIDGE CO</text>
+    </svg>`;
+    document.getElementById('headerLogoContainer').innerHTML = defaultLogo;
+  }
+
+  function renderQRWidgets() {
+    const permDiv = document.getElementById('permanentQrcode');
+    permDiv.innerHTML = '';
+    new QRCode(permDiv, {
+      text: window.location.href,
+      width: 20,
+      height: 20,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
+  function getItemTitle(item) {
+    if (!item) return '';
+    if (item.names) return item.names[menuState.lang] || item.names.en || item.names.ar || '';
+    return item.name || '';
+  }
+
+  function getCatTitle(cat) {
+    if (!cat) return '';
+    if (cat.names) return cat.names[menuState.lang] || cat.names.en || cat.names.ar || '';
+    return cat.name || '';
+  }
+
+  function getUnitPrice(item) {
+    if (!item) return 0;
+    const egp = Number(item.priceEGP || 100);
+    const eur = Number(item.priceEUR || 3.5);
+    if (menuState.currency === 'EGP') return egp;
+    if (menuState.currency === 'EUR') return eur;
+    if (menuState.currency === 'USD') return Math.ceil(eur * 1.1 * 2) / 2;
+    if (menuState.currency === 'GBP') return Math.ceil(eur * 0.85 * 2) / 2;
+    return egp;
+  }
+
+  function formatMoney(amount) {
+    const num = Number(amount || 0);
+    const clean = Number.isInteger(num) ? num.toString() : num.toFixed(2);
+    const sym = CURRENCY_SYMBOLS[menuState.currency] || 'EGP';
+    return `${clean} ${sym}`;
+  }
+
+  function renderCategories() {
+    const strip = document.getElementById('menuCategoryStrip');
+    let html = `<button class="cat-chip ${menuState.selectedCat === 'all' ? 'active' : ''}" data-cat="all">${t('allCategories')}</button>`;
+    menuState.categories.forEach(c => {
+      html += `<button class="cat-chip ${menuState.selectedCat === c.id ? 'active' : ''}" data-cat="${c.id}">${getCatTitle(c)}</button>`;
+    });
+    strip.innerHTML = html;
+
+    strip.querySelectorAll('.cat-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        menuState.selectedCat = btn.getAttribute('data-cat');
+        renderCategories();
+        renderItems();
+      });
+    });
+  }
+
+  function renderItems() {
+    const grid = document.getElementById('menuItemsGrid');
+    const q = menuState.searchQuery.trim().toLowerCase();
+    const filtered = menuState.items.filter(item => {
+      const matchCat = menuState.selectedCat === 'all' || item.categoryId === menuState.selectedCat;
+      const allNames = item.names ? Object.values(item.names).join(' ').toLowerCase() : getItemTitle(item).toLowerCase();
+      const matchQ = !q || allNames.includes(q);
+      return matchCat && matchQ;
+    });
+
+    grid.innerHTML = filtered.map(item => `
+      <div class="item-card ${item.special ? 'special-item' : ''}" data-id="${item.id}">
+        ${item.special ? `<span class="special-ribbon">★ BEST</span>` : ''}
+        <div class="item-thumb">
+          <img src="${item.image || makeDrinkImage(getItemTitle(item), item.categoryId)}" alt="">
+        </div>
+        <div class="item-name">${getItemTitle(item)}</div>
+        <div class="item-price-tag">${formatMoney(getUnitPrice(item))}</div>
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.item-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-id');
+        const ex = menuState.cart.find(c => c.itemId === id);
+        if (ex) ex.qty += 1;
+        else menuState.cart.push({ itemId: id, qty: 1 });
+        renderCart();
+      });
+    });
+  }
+
+  function renderCart() {
+    const list = document.getElementById('cartItemsList');
+    const totalItems = menuState.cart.reduce((a, b) => a + b.qty, 0);
+    document.getElementById('cartItemsCountDisplay').textContent = `${totalItems} 🥤`;
+
+    if (menuState.cart.length === 0) {
+      list.innerHTML = `<div class="cart-empty">${t('emptyCart')}</div>`;
+      document.getElementById('grandTotalDisplay').textContent = formatMoney(0);
+      return;
+    }
+
+    let subtotal = 0;
+    list.innerHTML = menuState.cart.map(c => {
+      const item = menuState.items.find(i => i.id === c.itemId);
+      if (!item) return '';
+      const unit = getUnitPrice(item);
+      subtotal += unit * c.qty;
+      return `
+        <div class="cart-row">
+          <span style="font-weight:700;">${getItemTitle(item)}</span>
+          <div style="display:flex; align-items:center; gap:4px;">
+            <span style="color:var(--gold-main); font-weight:800;">${formatMoney(unit * c.qty)}</span>
+            <button class="qty-btn" data-act="dec" data-id="${c.itemId}">-</button>
+            <span style="font-weight:800; min-width:12px; text-align:center;">${c.qty}</span>
+            <button class="qty-btn" data-act="inc" data-id="${c.itemId}">+</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    list.querySelectorAll('.qty-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-id');
+        const act = btn.getAttribute('data-act');
+        const idx = menuState.cart.findIndex(x => x.itemId === id);
+        if (idx === -1) return;
+        if (act === 'inc') menuState.cart[idx].qty++;
+        else {
+          menuState.cart[idx].qty--;
+          if (menuState.cart[idx].qty <= 0) menuState.cart.splice(idx, 1);
+        }
+        renderCart();
+      });
+    });
+
+    document.getElementById('grandTotalDisplay').textContent = formatMoney(subtotal);
+  }
+
+  document.getElementById('sendOrderBtn').addEventListener('click', () => {
+    if (menuState.cart.length === 0) {
+      alert(t('alertEmptyCart'));
+      return;
+    }
+    const customerInput = document.getElementById('customerTableInput');
+    const customer = customerInput.value.trim();
+    if (!customer) {
+      alert(t('alertNoTable'));
+      customerInput.focus();
+      return;
+    }
+
+    let subtotal = 0;
+    const htmlLines = [];
+    const textLines = [];
+
+    menuState.cart.forEach((c, idx) => {
+      const it = menuState.items.find(i => i.id === c.itemId);
+      const unit = getUnitPrice(it);
+      const lineTotal = unit * c.qty;
+      subtotal += lineTotal;
+      htmlLines.push(`<div style="display:flex; justify-content:space-between; border-bottom:1px solid #eee; padding:2px 0;"><span>${idx + 1}. ${getItemTitle(it)} × ${c.qty}</span><strong>${formatMoney(lineTotal)}</strong></div>`);
+      textLines.push(`${idx + 1}. ${it.names.en} (${it.names.ar}) × ${c.qty} = ${formatMoney(lineTotal)}`);
+    });
+
+    const timeStr = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    menuState.lastOrderText = [
+      `🍹 *New Order - FRESHLY & PREMIER*`,
+      `📍 *Table / Room / Customer:* ${customer}`,
+      `🕒 *Time:* ${timeStr}`,
+      `--------------------------`,
+      ...textLines,
+      `--------------------------`,
+      `💰 *Total:* ${formatMoney(subtotal)}`
+    ].join('\n');
+
+    document.getElementById('receiptContent').innerHTML = `
+      <div style="text-align:center; font-weight:900; font-size:0.82rem; border-bottom:2px solid #111; padding-bottom:3px; margin-bottom:4px;">FRESHLY &amp; PREMIER</div>
+      <div><strong>📍 Table / Customer:</strong> ${customer}</div>
+      <div style="margin-bottom:4px;"><strong>🕒 Time:</strong> ${timeStr}</div>
+      ${htmlLines.join('')}
+      <div style="display:flex; justify-content:space-between; font-weight:900; font-size:0.85rem; margin-top:5px; padding-top:4px; border-top:2px solid #111;">
+        <span>Total:</span>
+        <span>${formatMoney(subtotal)}</span>
+      </div>
+    `;
+
+    const waNum = (menuState.contact && menuState.contact.whatsapp || '').replace(/[^0-9]/g, '');
+    const actionWrap = document.getElementById('dynamicContactActionWrap');
+    if (waNum) {
+      const waUrl = `https://wa.me/${waNum}?text=${encodeURIComponent(menuState.lastOrderText)}`;
+      actionWrap.innerHTML = `<a href="${waUrl}" target="_blank" class="btn" style="background:#25D366; color:#fff; width:100%; text-decoration:none;">📲 Send via WhatsApp</a>`;
+    } else {
+      actionWrap.innerHTML = '';
+    }
+
+    document.getElementById('orderModal').classList.add('open');
+  });
+
+  window.copyOrderSummary = function() {
+    navigator.clipboard.writeText(menuState.lastOrderText).then(() => {
+      alert('✅ Order summary copied!');
+    });
+  };
+
+  window.finishAndClearCart = function() {
+    menuState.cart = [];
+    document.getElementById('customerTableInput').value = '';
+    renderCart();
+    closeModal('orderModal');
+  };
+
+  document.getElementById('langSelect').value = menuState.lang;
+  document.getElementById('langSelect').addEventListener('change', e => {
+    menuState.lang = e.target.value;
+    localStorage.setItem('fp_lang_v6', menuState.lang);
+    applyTranslations();
+    renderCategories();
+    renderItems();
+    renderCart();
+  });
+
+  document.getElementById('currencySelect').value = menuState.currency;
+  document.getElementById('currencySelect').addEventListener('change', e => {
+    menuState.currency = e.target.value;
+    localStorage.setItem('fp_currency_v6', menuState.currency);
+    renderItems();
+    renderCart();
+  });
+
+  document.getElementById('menuSearchInput').addEventListener('input', e => {
+    menuState.searchQuery = e.target.value;
+    renderItems();
+  });
+
+  window.openQRModal = function() {
+    document.getElementById('qrModal').classList.add('open');
+    const url = window.location.href;
+    document.getElementById('shareUrlBox').textContent = url;
+    const qrDiv = document.getElementById('modalQrcode');
+    qrDiv.innerHTML = '';
+    new QRCode(qrDiv, {
+      text: url,
+      width: 140,
+      height: 140,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  };
+
+  window.copyShareLink = function() {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      alert('✅ Link copied!');
+    });
+  };
+
+  window.openInfoModal = function() {
+    const c = menuState.contact || {};
+    let html = '';
+    if (c.address) html += `<div>📍 <strong>Address:</strong> ${c.address}</div>`;
+    if (c.whatsapp) html += `<div>📲 <strong>WhatsApp:</strong> <a href="https://wa.me/${c.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" style="color:var(--gold-main);">${c.whatsapp}</a></div>`;
+    if (c.phones) html += `<div>📞 <strong>Phone:</strong> ${c.phones}</div>`;
+    if (c.social) html += `<div>🌐 <strong>Social:</strong> ${c.social}</div>`;
+    document.getElementById('dynamicInfoBody').innerHTML = html;
+    document.getElementById('infoModal').classList.add('open');
+  };
+
+  window.closeModal = function(id) {
+    document.getElementById(id).classList.remove('open');
+  };
+
+  window.openAdminModal = function() {
+    document.getElementById('adminModal').classList.add('open');
+    const c = menuState.contact || {};
+    document.getElementById('cfgWhatsapp').value = c.whatsapp || '';
+    document.getElementById('cfgPhones').value = c.phones || '';
+    document.getElementById('cfgAddress').value = c.address || '';
+    document.getElementById('cfgSocial').value = c.social || '';
+
+    const catSelect = document.getElementById('editItemCat');
+    catSelect.innerHTML = menuState.categories.map(cat => `<option value="${cat.id}">${cat.names.en} (${cat.names.ar})</option>`).join('');
+    renderAdminList();
+  };
+
+  window.saveContactSettings = function() {
+    menuState.contact = {
+      whatsapp: document.getElementById('cfgWhatsapp').value.trim(),
+      phones: document.getElementById('cfgPhones').value.trim(),
+      address: document.getElementById('cfgAddress').value.trim(),
+      social: document.getElementById('cfgSocial').value.trim()
+    };
+    localStorage.setItem('fp_public_contact_v6', JSON.stringify(menuState.contact));
+    updateContactVisibility();
+    alert('✅ Contact settings saved!');
+  };
+
+  function renderAdminList() {
+    document.getElementById('adminTotalCount').textContent = menuState.items.length;
+    const listDiv = document.getElementById('adminItemsList');
+    listDiv.innerHTML = menuState.items.map(item => `
+      <div class="admin-item-row">
+        <div>
+          <div style="font-weight:800; color:var(--text-main);">${item.special ? '★ ' : ''}${item.names.en} - ${item.names.ar}</div>
+          <div style="font-size:0.62rem; color:var(--gold-main);">${item.priceEGP} EGP | ${item.priceEUR} €</div>
+        </div>
+        <div style="display:flex; gap:3px;">
+          <button class="btn btn-dark" style="padding:2px 5px; font-size:0.6rem;" onclick="editAdminItem('${item.id}')">✏️</button>
+          <button class="btn btn-danger" style="padding:2px 5px; font-size:0.6rem;" onclick="deleteAdminItem('${item.id}')">🗑️</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.editAdminItem = function(id) {
+    const it = menuState.items.find(x => x.id === id);
+    if (!it) return;
+    document.getElementById('editItemId').value = it.id;
+    document.getElementById('editItemCat').value = it.categoryId;
+    document.getElementById('editNameAr').value = it.names.ar || '';
+    document.getElementById('editNameEn').value = it.names.en || '';
+    document.getElementById('editImageUrl').value = it.image || '';
+    document.getElementById('editPriceEGP').value = it.priceEGP;
+    document.getElementById('editPriceEUR').value = it.priceEUR;
+    document.getElementById('editItemSpecial').checked = !!it.special;
+  };
+
+  window.deleteAdminItem = function(id) {
+    if (!confirm('Delete this item?')) return;
+    menuState.items = menuState.items.filter(x => x.id !== id);
+    localStorage.setItem('fp_public_items_v6', JSON.stringify(menuState.items));
+    renderAdminList();
+    renderItems();
+  };
+
+  function commitSaveItem(imgData) {
+    const id = document.getElementById('editItemId').value;
+    const catId = document.getElementById('editItemCat').value;
+    const nameAr = document.getElementById('editNameAr').value.trim();
+    const nameEn = document.getElementById('editNameEn').value.trim() || nameAr;
+    const priceEGP = Number(document.getElementById('editPriceEGP').value) || 100;
+    const priceEUR = Number(document.getElementById('editPriceEUR').value) || 3.5;
+    const special = document.getElementById('editItemSpecial').checked;
+
+    if (id) {
+      const idx = menuState.items.findIndex(x => x.id === id);
+      if (idx !== -1) {
+        menuState.items[idx] = {
+          ...menuState.items[idx],
+          categoryId: catId,
+          priceEGP,
+          priceEUR,
+          special,
+          image: imgData !== undefined ? imgData : menuState.items[idx].image,
+          names: { ar: nameAr || nameEn, en: nameEn, de: nameEn, fr: nameEn, ru: nameEn }
+        };
+      }
+    } else {
+      menuState.items.unshift({
+        id: 'item_' + Date.now(),
+        categoryId: catId,
+        priceEGP,
+        priceEUR,
+        special,
+        image: imgData || '',
+        names: { ar: nameAr || nameEn, en: nameEn, de: nameEn, fr: nameEn, ru: nameEn }
+      });
+    }
+
+    localStorage.setItem('fp_public_items_v6', JSON.stringify(menuState.items));
+    document.getElementById('editItemId').value = '';
+    document.getElementById('editNameAr').value = '';
+    document.getElementById('editNameEn').value = '';
+    document.getElementById('editImageUrl').value = '';
+    document.getElementById('editImageFile').value = '';
+    document.getElementById('editPriceEGP').value = '';
+    document.getElementById('editPriceEUR').value = '';
+    document.getElementById('editItemSpecial').checked = false;
+
+    renderAdminList();
+    renderItems();
+    alert('✅ Saved successfully!');
+  }
+
+  window.saveAdminItem = function() {
+    const nameAr = document.getElementById('editNameAr').value.trim();
+    const nameEn = document.getElementById('editNameEn').value.trim();
+    if (!nameAr && !nameEn) {
+      alert('Please enter item name!');
+      return;
+    }
+    const fileInput = document.getElementById('editImageFile');
+    const urlInput = document.getElementById('editImageUrl').value.trim();
+
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        commitScanOrSave(e.target.result);
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    } else {
+      commitScanOrSave(urlInput);
+    }
+  };
+
+  function commitScanOrSave(imgData) {
+    commitSaveItem(imgData);
+  }
+
+  window.exportUpdatedHTML = function() {
+    const updatedData = {
+      contact: menuState.contact,
+      categories: menuState.categories,
+      items: menuState.items
+    };
+    const fullDoc = document.documentElement.outerHTML;
+    const newDataBlock = `<script id="menuDataScript">\nconst INITIAL_MENU_DATA = ${JSON.stringify(updatedData, null, 2)};\n<\/script>`;
+    const replaced = fullDoc.replace(/<script id="menuDataScript">[\s\S]*?<\/script>/, newDataBlock);
+    const blob = new Blob(['<!DOCTYPE html>\n' + replaced], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+  };
+
+  renderLogos();
+  applyTranslations();
+  updateContactVisibility();
+  renderQRWidgets();
+  renderCategories();
+  renderItems();
+  renderCart();
+});
+</script>
+</body>
+</html>
