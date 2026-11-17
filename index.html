@@ -690,10 +690,8 @@ const INITIAL_MENU_DATA = {
 </script>
 
 <script>
-// دالة التحقق من كلمة السر المعقّدة قبل فتح لوحة التحكم (مكونة من أرقام وحروف وعلامات مميزة)
 window.checkAdminPassword = function() {
   const enteredPass = prompt("🔐 أدخل كلمة السر للوصول إلى لوحة التحكم والإعدادات:");
-  // كلمة السر المعقدة المطلوبة: Freshly@2026#POS!
   const correctPass = "Osama14492@";
   if (enteredPass === correctPass) {
     openAdminModal();
@@ -972,6 +970,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('grandTotalDisplay').textContent = formatMoney(subtotal);
   }
 
+  // ربط زر تأكيد الطلب الفعلي بإرسال البيانات سحابياً إلى Firebase
   document.getElementById('sendOrderBtn').addEventListener('click', () => {
     if (menuState.cart.length === 0) {
       alert(t('alertEmptyCart'));
@@ -988,6 +987,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let subtotal = 0;
     const htmlLines = [];
     const textLines = [];
+    const cartItemsData = [];
 
     menuState.cart.forEach((c, idx) => {
       const it = menuState.items.find(i => i.id === c.itemId);
@@ -996,7 +996,13 @@ document.addEventListener('DOMContentLoaded', () => {
       subtotal += lineTotal;
       htmlLines.push(`<div style="display:flex; justify-content:space-between; border-bottom:1px solid #eee; padding:2px 0;"><span>${idx + 1}. ${getItemTitle(it)} × ${c.qty}</span><strong>${formatMoney(lineTotal)}</strong></div>`);
       textLines.push(`${idx + 1}. ${it.names.en} (${it.names.ar}) × ${c.qty} = ${formatMoney(lineTotal)}`);
+      cartItemsData.push({ id: it.id, name: getItemTitle(it), qty: c.qty, price: unit });
     });
+
+    // إرسال الأوردر سحابياً ليتلقاه الكاشير لحظياً
+    if (typeof sendOrderToCloudFirebase === 'function') {
+      sendOrderToCloudFirebase(customer, cartItemsData, formatMoney(subtotal));
+    }
 
     const timeStr = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
     menuState.lastOrderText = [
@@ -1267,7 +1273,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
 });
 </script>
-<!-- أضف كود الـ Firebase هنا -->
+
+<!-- اتصال Firebase وإرسال الطلبات للسحابة -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 <script>
@@ -1282,8 +1289,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
   const cloudDb = firebase.database();
-  // استدعاء دالة إرسال الطلب للسحابة عند الضغط على تأكيد الطلب
-sendOrderToCloudFirebase(customerName, cart, totalAmount);
+
+  function sendOrderToCloudFirebase(customerName, cartItems, totalAmount) {
     const orderId = 'WEB-' + Math.floor(1000 + Math.random() * 9000);
     cloudDb.ref('pendingOrders/' + orderId).set({
       id: orderId,
