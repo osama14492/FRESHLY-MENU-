@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
+<html lang="ar" dir="rtl"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>FRESHLY & PREMIER - Digital Menu</title>
+<title>FRESHLY &amp; PREMIER - Digital Menu</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   :root {
@@ -349,7 +348,7 @@
   .btn-dark { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-subtle); }
   .btn-danger { background: rgba(239,68,68,0.18); color: #f87171; border: 1px solid rgba(239,68,68,0.4); }
 
-  /* Bottom Navigation Bar - Fully visible */
+  /* Bottom Navigation Bar */
   .nav-bar {
     background: #10131a;
     border-top: 1.5px solid var(--gold-main);
@@ -454,7 +453,14 @@
     <header class="app-header">
       <div class="header-top">
         <div class="brand-box">
-          <div id="headerLogoContainer" class="brand-logo-wrap"></div>
+          <div id="headerLogoContainer" class="brand-logo-wrap"><svg viewBox="0 0 220 84" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="g3d" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#aa771c"></stop><stop offset="30%" stop-color="#fcf6ba"></stop>
+      <stop offset="60%" stop-color="#d4af37"></stop><stop offset="100%" stop-color="#996515"></stop></linearGradient></defs>
+      <rect width="220" height="84" rx="10" fill="#151922"></rect>
+      <text x="24" y="60" font-family="Georgia, serif" font-weight="900" font-size="34" fill="url(#g3d)">FRESHLY</text>
+      <text x="95" y="73" font-family="sans-serif" font-weight="800" font-size="8" letter-spacing="1" fill="url(#g3d)">PREMIER BEVERIDGE CO</text>
+    </svg></div>
           <div>
             <div class="brand-title">FRESHLY &amp; PREMIER</div>
             <div class="brand-sub">PREMIER BEVERIDGE CO</div>
@@ -465,7 +471,7 @@
           <div class="selector-pill" title="Language">
             <span>🌐</span>
             <select id="langSelect">
-              <option value="en" selected>🇬🇧 EN</option>
+              <option value="en" selected="">🇬🇧 EN</option>
               <option value="ar">🇪🇬 AR</option>
               <option value="de">🇩🇪 DE</option>
               <option value="fr">🇫🇷 FR</option>
@@ -489,20 +495,20 @@
     <div class="permanent-qr-bar">
       <div class="permanent-qr-info">
         <div class="permanent-qr-thumb" onclick="openQRModal()" title="Tap to view full QR code">
-          <div id="permanentQrcode"></div>
+          <div id="permanentQrcode" title="https://osama14492.github.io/FRESHLY-MENU-/"><canvas width="20" height="20"></canvas><img style="display: none;"></div>
         </div>
         <div>
-          <div style="font-size:0.68rem; font-weight:800; color:var(--gold-light);" data-i18n="qrBannerTitle">📱 Public Menu QR</div>
-          <div style="font-size:0.52rem; color:var(--text-muted);" data-i18n="qrBannerSub">Scan with camera to browse &amp; order</div>
+          <div style="font-size:0.68rem; font-weight:800; color:var(--gold-light);" data-i18n="qrBannerTitle">📱 باركود المنيو العام</div>
+          <div style="font-size:0.52rem; color:var(--text-muted);" data-i18n="qrBannerSub">امسح الكود بكاميرا الهاتف للتصفح والطلب</div>
         </div>
       </div>
-      <button class="btn btn-dark" style="padding:2px 6px; font-size:0.6rem;" onclick="openQRModal()" data-i18n="qrShowBtn">Show QR</button>
+      <button class="btn btn-dark" style="padding:2px 6px; font-size:0.6rem;" onclick="openQRModal()" data-i18n="qrShowBtn">عرض الكود</button>
     </div>
 
     <!-- Main Workspace -->
     <main class="main-content">
       <div>
-        <input type="text" id="menuSearchInput" class="input-field" data-i18n-placeholder="searchPlaceholder" placeholder="Search drinks or items...">
+        <input type="text" id="menuSearchInput" class="input-field" data-i18n-placeholder="searchPlaceholder" placeholder="ابحث عن مشروب أو صنف...">
       </div>
       <div id="menuCategoryStrip" class="category-strip"></div>
       <div id="menuItemsGrid" class="items-grid"></div>
@@ -511,50 +517,50 @@
     <!-- Cart Panel -->
     <div class="cart-panel">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-        <span style="font-size:0.72rem; font-weight:800; color:var(--gold-main);" data-i18n="cartTitle">Order Cart</span>
+        <span style="font-size:0.72rem; font-weight:800; color:var(--gold-main);" data-i18n="cartTitle">سلة الطلبات</span>
         <span id="cartItemsCountDisplay" style="font-size:0.65rem; font-weight:800; color:var(--gold-light);">0 🥤</span>
       </div>
       <div style="margin-bottom:3px;">
-        <input type="text" id="customerTableInput" class="input-field" style="border: 1.5px solid var(--gold-main); background: rgba(212,175,55,0.08); font-weight:700;" data-i18n-placeholder="tablePlaceholder" placeholder="📍 Enter table #, room #, or your name...">
+        <input type="text" id="customerTableInput" class="input-field" style="border: 1.5px solid var(--gold-main); background: rgba(212,175,55,0.08); font-weight:700;" data-i18n-placeholder="tablePlaceholder" placeholder="📍 أدخل رقم الطاولة أو الغرفة أو الاسم...">
       </div>
 
-      <div id="cartItemsList" class="cart-list"></div>
+      <div id="cartItemsList" class="cart-list"><div class="cart-empty">السلة فارغة — اضغط على الصنف للإضافة</div></div>
 
       <div class="totals-row">
-        <span data-i18n="grandTotalLabel">Grand Total:</span>
+        <span data-i18n="grandTotalLabel">الإجمالي النهائي:</span>
         <span id="grandTotalDisplay">0 EGP</span>
       </div>
 
-      <button id="sendOrderBtn" class="btn btn-gold" data-i18n="sendOrderBtn">🧾 Confirm &amp; View Order Summary</button>
+      <button id="sendOrderBtn" class="btn btn-gold" data-i18n="sendOrderBtn">🧾 تأكيد وعرض ملخص الطلب</button>
     </div>
 
-    <!-- Bottom Navigation Bar - Fully visible -->
+    <!-- Bottom Navigation Bar -->
     <nav class="nav-bar">
-      <button class="nav-btn active" onclick="openQRModal()"><span>📱</span><span data-i18n="navQr">QR Code</span></button>
-      <button class="nav-btn" onclick="openAdminModal()"><span>⚙️</span><span data-i18n="navAdmin">Manage Menu</span></button>
-      <button class="nav-btn" id="contactNavBtn" style="display:none;" onclick="openInfoModal()"><span>📞</span><span data-i18n="navContact">Contact</span></button>
+      <button class="nav-btn active" onclick="openQRModal()"><span>📱</span><span data-i18n="navQr">الباركود</span></button>
+      <button class="nav-btn" onclick="checkAdminPassword()"><span>⚙️</span><span data-i18n="navAdmin">إدارة المنيو</span></button>
+      <button class="nav-btn" id="contactNavBtn" style="display:none;" onclick="openInfoModal()"><span>📞</span><span data-i18n="navContact">تواصل معنا</span></button>
     </nav>
 
     <!-- QR Modal -->
     <div id="qrModal" class="modal-backdrop" onclick="closeModal('qrModal')">
       <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 style="color:var(--gold-main); font-size:0.9rem; margin-bottom:5px;" data-i18n="qrModalTitle">Customer Menu QR</h3>
-        <div id="modalQrcode"></div>
-        <p style="color:var(--text-muted); font-size:0.68rem; margin-bottom:6px;" data-i18n="qrModalDesc">Scan with your phone camera to view menu &amp; order</p>
+        <h3 style="color:var(--gold-main); font-size:0.9rem; margin-bottom:5px;" data-i18n="qrModalTitle">باركود المنيو للعملاء</h3>
+        <div id="modalQrcode" title=""><canvas width="140" height="140"></canvas><img style="display: none;"></div>
+        <p style="color:var(--text-muted); font-size:0.68rem; margin-bottom:6px;" data-i18n="qrModalDesc">امسح الكود بالكاميرا لتصفح المنيو والطلب فوراً</p>
         <div style="background:var(--bg-input); padding:5px; border-radius:6px; border:1px solid var(--border-subtle); font-size:0.62rem; color:var(--gold-light); word-break:break-all; margin-bottom:8px;" id="shareUrlBox"></div>
         <button class="btn btn-gold" style="margin-bottom:5px;" onclick="copyShareLink()">📋 Copy Menu Link</button>
-        <button class="btn btn-dark" style="width:100%;" onclick="closeModal('qrModal')" data-i18n="closeBtn">Close</button>
+        <button class="btn btn-dark" style="width:100%;" onclick="closeModal('qrModal')" data-i18n="closeBtn">إغلاق</button>
       </div>
     </div>
 
     <!-- Order Receipt / Confirmation Modal -->
     <div id="orderModal" class="modal-backdrop" onclick="closeModal('orderModal')">
       <div class="modal-card" onclick="event.stopPropagation()">
-        <h3 style="color:var(--gold-main); font-size:0.9rem; margin-bottom:5px;" data-i18n="orderSummaryTitle">✅ Your Order Summary</h3>
+        <h3 style="color:var(--gold-main); font-size:0.9rem; margin-bottom:5px;" data-i18n="orderSummaryTitle">✅ ملخص الطلب الجاهز</h3>
         <div id="receiptContent" class="receipt-box"></div>
         <div id="dynamicContactActionWrap" style="margin-bottom:5px;"></div>
-        <button class="btn btn-gold" style="margin-bottom:5px;" onclick="copyOrderSummary()" data-i18n="copyOrderBtn">📋 Copy Order Details</button>
-        <button class="btn btn-dark" style="width:100%;" onclick="finishAndClearCart()" data-i18n="doneOrderBtn">Done — Clear Cart</button>
+        <button class="btn btn-gold" style="margin-bottom:5px;" onclick="copyOrderSummary()" data-i18n="copyOrderBtn">📋 نسخ تفاصيل الطلب</button>
+        <button class="btn btn-dark" style="width:100%;" onclick="finishAndClearCart()" data-i18n="doneOrderBtn">تم — تفريغ السلة</button>
       </div>
     </div>
 
@@ -643,47 +649,59 @@
 
 <script id="menuDataScript">
 const INITIAL_MENU_DATA = {
-  contact: { whatsapp: "", phones: "", address: "", social: "" },
-  categories: [
-    { id: 'fresh_juice', names: { ar: 'عصائر فريش', en: 'Fresh Juices', de: 'Frische Säfte', fr: 'Jus Frais', ru: 'Свежие соки' } },
-    { id: 'milkshake', names: { ar: 'ميلك شيك', en: 'Milkshake', de: 'Milchshake', fr: 'Milkshake', ru: 'Милкшейк' } },
-    { id: 'smoothie', names: { ar: 'سموزي', en: 'Smoothie', de: 'Smoothie', fr: 'Smoothie', ru: 'Смузи' } },
-    { id: 'mojito', names: { ar: 'موهيتو', en: 'Mojito', de: 'Mojito', fr: 'Mojito', ru: 'Мохито' } },
-    { id: 'iced_coffee', names: { ar: 'آيس كوفي', en: 'Iced Coffee', de: 'Eiskaffee', fr: 'Café Glacé', ru: 'Айс Кофе' } },
-    { id: 'frappe', names: { ar: 'فرابيه', en: 'Frappe', de: 'Frappé', fr: 'Frappé', ru: 'Фраппе' } },
-    { id: 'matcha', names: { ar: 'الماتشا', en: 'Matcha', de: 'Matcha', fr: 'Matcha', ru: 'Матча' } },
-    { id: 'iced_tea', names: { ar: 'آيس تي', en: 'Iced Tea', de: 'Eistee', fr: 'Thé Glacé', ru: 'Айс Ти' } },
-    { id: 'fruit_platters', names: { ar: 'أطباق فاكهة فريش', en: 'Fruit Platters', de: 'Obstteller', fr: 'Assiettes Fruits', ru: 'Фруктовые тарелки' } },
-    { id: 'hot_drinks', names: { ar: 'مشروبات ساخنة', en: 'Hot Drinks', de: 'Heißgetränke', fr: 'Boissons Chaudes', ru: 'Горячие напитки' } },
-    { id: 'soft_drinks', names: { ar: 'سوفت درينكس', en: 'Soft Drinks', de: 'Softdrinks', fr: 'Boissons Fraîches', ru: 'Напитки' } },
-    { id: 'energy', names: { ar: 'الطاقة والانتعاش', en: 'Energy & Refreshment', de: 'Energie', fr: 'Énergie', ru: 'Энергия' } }
+  "contact": { "whatsapp": "", "phones": "", "address": "", "social": "" },
+  "categories": [
+    { "id": "fresh_juice", "names": { "ar": "عصائر فريش", "en": "Fresh Juices", "de": "Frische Säfte", "fr": "Jus Frais", "ru": "Свежие соки" } },
+    { "id": "milkshake", "names": { "ar": "ميلك شيك", "en": "Milkshake", "de": "Milchshake", "fr": "Milkshake", "ru": "Милкшейк" } },
+    { "id": "smoothie", "names": { "ar": "سموزي", "en": "Smoothie", "de": "Smoothie", "fr": "Smoothie", "ru": "Смузи" } },
+    { "id": "mojito", "names": { "ar": "موهيتو", "en": "Mojito", "de": "Mojito", "fr": "Mojito", "ru": "Мохито" } },
+    { "id": "iced_coffee", "names": { "ar": "آيس كوفي", "en": "Iced Coffee", "de": "Eiskaffee", "fr": "Café Glacé", "ru": "Айс Кофе" } },
+    { "id": "frappe", "names": { "ar": "فرابيه", "en": "Frappe", "de": "Frappé", "fr": "Frappé", "ru": "Фраппе" } },
+    { "id": "matcha", "names": { "ar": "الماتشا", "en": "Matcha", "de": "Matcha", "fr": "Matcha", "ru": "Матча" } },
+    { "id": "iced_tea", "names": { "ar": "آيس تي", "en": "Iced Tea", "de": "Eistee", "fr": "Thé Glacé", "ru": "Айс Ти" } },
+    { "id": "fruit_platters", "names": { "ar": "أطباق فاكهة فريش", "en": "Fruit Platters", "de": "Obstteller", "fr": "Assiettes Fruits", "ru": "Фруктовые тарелки" } },
+    { "id": "hot_drinks", "names": { "ar": "مشروبات ساخنة", "en": "Hot Drinks", "de": "Heißgetränke", "fr": "Boissons Chaudes", "ru": "Горячие напитки" } },
+    { "id": "soft_drinks", "names": { "ar": "سوفت درينكس", "en": "Soft Drinks", "de": "Softdrinks", "fr": "Boissons Fraîches", "ru": "Напитки" } },
+    { "id": "energy", "names": { "ar": "الطاقة والانتعاش", "en": "Energy & Refreshment", "de": "Energie", "fr": "Énergie", "ru": "Энергия" } }
   ],
-  items: [
-    { id: 'fj_mango', categoryId: 'fresh_juice', special: true, priceEGP: 120, priceEUR: 4, image: '', names: { ar: 'عصير مانجو فريش', en: 'Fresh Mango Juice', de: 'Frischer Mangosaft', fr: 'Jus de Mangue Frais', ru: 'Свежий сок манго' } },
-    { id: 'fj_strawberry', categoryId: 'fresh_juice', special: false, priceEGP: 110, priceEUR: 3.5, image: '', names: { ar: 'عصير فراولة فريش', en: 'Fresh Strawberry Juice', de: 'Frischer Erdbeersaft', fr: 'Jus de Fraise Frais', ru: 'Клубничный фреш' } },
-    { id: 'fj_orange', categoryId: 'fresh_juice', special: false, priceEGP: 100, priceEUR: 3.5, image: '', names: { ar: 'عصير برتقال فريش', en: 'Fresh Orange Juice', de: 'Frischer Orangensaft', fr: 'Jus d’Orange Frais', ru: 'Апельсиновый фреш' } },
-    { id: 'fj_guava', categoryId: 'fresh_juice', special: false, priceEGP: 100, priceEUR: 3.5, image: '', names: { ar: 'عصير جوافة فريش', en: 'Fresh Guava Juice', de: 'Frischer Guavensaft', fr: 'Jus de Goyave Frais', ru: 'Сок гуавы' } },
-    { id: 'fj_lemon_mint', categoryId: 'fresh_juice', special: true, priceEGP: 95, priceEUR: 3, image: '', names: { ar: 'ليمون بالنعناع الفريش', en: 'Fresh Lemon Mint', de: 'Zitrone-Minze', fr: 'Citron Menthe Frais', ru: 'Лимон с мятой' } },
-    { id: 'fj_watermelon', categoryId: 'fresh_juice', special: false, priceEGP: 100, priceEUR: 3.5, image: '', names: { ar: 'عصير بطيخ فريش', en: 'Fresh Watermelon Juice', de: 'Wassermelonensaft', fr: 'Jus de Pastèque', ru: 'Арбузный фреш' } },
-    { id: 'fj_avocado', categoryId: 'fresh_juice', special: true, priceEGP: 160, priceEUR: 5, image: '', names: { ar: 'أفوكادو بالعسل والمكسرات', en: 'Avocado Honey & Nuts', de: 'Avocado Honig & Nüsse', fr: 'Avocat Miel & Noix', ru: 'Авокадо с медом и орехами' } },
-    { id: 'fj_cocktail', categoryId: 'fresh_juice', special: true, priceEGP: 140, priceEUR: 4.5, image: '', names: { ar: 'كوكتيل فريشلي الخاص', en: 'Freshly Special Cocktail', de: 'Freshly Spezial-Cocktail', fr: 'Cocktail Spécial Freshly', ru: 'Фирменный коктейль Freshly' } },
-    { id: 'ms_vanilla', categoryId: 'milkshake', special: false, priceEGP: 130, priceEUR: 4, image: '', names: { ar: 'ميلك شيك فانيليا', en: 'Vanilla Milkshake', de: 'Vanille Milchshake', fr: 'Milkshake Vanille', ru: 'Ванильный милкшейк' } },
-    { id: 'ms_chocolate', categoryId: 'milkshake', special: false, priceEGP: 135, priceEUR: 4.5, image: '', names: { ar: 'ميلك شيك شوكولاتة', en: 'Chocolate Milkshake', de: 'Schoko Milchshake', fr: 'Milkshake Chocolat', ru: 'Шоколадный милкшейк' } },
-    { id: 'ms_oreo', categoryId: 'milkshake', special: true, priceEGP: 150, priceEUR: 5, image: '', names: { ar: 'ميلك شيك أوريو', en: 'Oreo Milkshake', de: 'Oreo Milchshake', fr: 'Milkshake Oreo', ru: 'Милкшейк Орео' } },
-    { id: 'ms_lotus', categoryId: 'milkshake', special: true, priceEGP: 160, priceEUR: 5, image: '', names: { ar: 'ميلك شيك لوتس', en: 'Lotus Biscoff Shake', de: 'Lotus Milchshake', fr: 'Milkshake Lotus', ru: 'Милкшейк Лотус' } },
-    { id: 'sm_mango_passion', categoryId: 'smoothie', special: true, priceEGP: 145, priceEUR: 4.5, image: '', names: { ar: 'سموزي مانجو باشن فروت', en: 'Mango Passion Smoothie', de: 'Mango-Maracuja Smoothie', fr: 'Smoothie Mangue Passion', ru: 'Смузи Манго-Маракуйя' } },
-    { id: 'sm_berry_mix', categoryId: 'smoothie', special: false, priceEGP: 150, priceEUR: 5, image: '', names: { ar: 'سموزي ميكس بيري', en: 'Mixed Berry Smoothie', de: 'Beeren-Mix Smoothie', fr: 'Smoothie Fruits Rouges', ru: 'Ягодный смузи' } },
-    { id: 'mj_classic', categoryId: 'mojito', special: false, priceEGP: 115, priceEUR: 4, image: '', names: { ar: 'موهيتو كلاسيك', en: 'Classic Mojito', de: 'Klassischer Mojito', fr: 'Mojito Classique', ru: 'Классический Мохито' } },
-    { id: 'mj_blue', categoryId: 'mojito', special: true, priceEGP: 130, priceEUR: 4.5, names: { ar: 'بلو هاواي موهيتو', en: 'Blue Ocean Mojito', de: 'Blue Ocean Mojito', fr: 'Mojito Bleu Océan', ru: 'Голубой Мохито' } },
-    { id: 'ic_latte', categoryId: 'iced_coffee', special: false, priceEGP: 115, priceEUR: 4, image: '', names: { ar: 'آيس لاتيه', en: 'Iced Caffè Latte', de: 'Eis-Latte', fr: 'Latte Glacé', ru: 'Айс Латте' } },
-    { id: 'ic_spanish', categoryId: 'iced_coffee', special: true, priceEGP: 135, priceEUR: 4.5, names: { ar: 'سبانيش لاتيه مثلج', en: 'Iced Spanish Latte', de: 'Spanischer Eislatte', fr: 'Latte Espagnol Glacé', ru: 'Айс Испанский Латте' } },
-    { id: 'hd_espresso', categoryId: 'hot_drinks', special: false, priceEGP: 70, priceEUR: 2.5, image: '', names: { ar: 'إسبريسو سينجل / دبل', en: 'Espresso Single / Double', de: 'Espresso', fr: 'Expresso', ru: 'Эспрессо' } },
-    { id: 'hd_cappuccino', categoryId: 'hot_drinks', special: false, priceEGP: 105, priceEUR: 3.5, image: '', names: { ar: 'كابتشينو', en: 'Cappuccino', de: 'Cappuccino', fr: 'Cappuccino', ru: 'Капучино' } }
+  "items": [
+    { "id": "fj_mango", "categoryId": "fresh_juice", "special": true, "priceEGP": 120, "priceEUR": 4, "image": "", "names": { "ar": "عصير مانجو فريش", "en": "Fresh Mango Juice", "de": "Frischer Mangosaft", "fr": "Jus de Mangue Frais", "ru": "Свежий сок манго" } },
+    { "id": "fj_strawberry", "categoryId": "fresh_juice", "special": false, "priceEGP": 110, "priceEUR": 3.5, "image": "", "names": { "ar": "عصير فراولة فريش", "en": "Fresh Strawberry Juice", "de": "Frischer Erdbeersaft", "fr": "Jus de Fraise Frais", "ru": "Клубничный фреш" } },
+    { "id": "fj_orange", "categoryId": "fresh_juice", "special": false, "priceEGP": 100, "priceEUR": 3.5, "image": "", "names": { "ar": "عصير برتقال فريش", "en": "Fresh Orange Juice", "de": "Frischer Orangensaft", "fr": "Jus d’Orange Frais", "ru": "Апельсиновый фреш" } },
+    { "id": "fj_guava", "categoryId": "fresh_juice", "special": false, "priceEGP": 100, "priceEUR": 3.5, "image": "", "names": { "ar": "عصير جوافة فريش", "en": "Fresh Guava Juice", "de": "Frischer Guavensaft", "fr": "Jus de Goyave Frais", "ru": "Сок гуавы" } },
+    { "id": "fj_lemon_mint", "categoryId": "fresh_juice", "special": true, "priceEGP": 95, "priceEUR": 3, "image": "", "names": { "ar": "ليمون بالنعناع الفريش", "en": "Fresh Lemon Mint", "de": "Zitrone-Minze", "fr": "Citron Menthe Frais", "ru": "Лимон с мятой" } },
+    { "id": "fj_watermelon", "categoryId": "fresh_juice", "special": false, "priceEGP": 100, "priceEUR": 3.5, "image": "", "names": { "ar": "عصير بطيخ فريش", "en": "Fresh Watermelon Juice", "de": "Wassermelonensaft", "fr": "Jus de Pastèque", "ru": "Арбузный фреш" } },
+    { "id": "fj_avocado", "categoryId": "fresh_juice", "special": true, "priceEGP": 160, "priceEUR": 5, "image": "", "names": { "ar": "أفوكادو بالعسل والمكسرات", "en": "Avocado Honey & Nuts", "de": "Avocado Honig & Nüsse", "fr": "Avocat Miel & Noix", "ru": "Авокадо с медом и орехами" } },
+    { "id": "fj_cocktail", "categoryId": "fresh_juice", "special": true, "priceEGP": 140, "priceEUR": 4.5, "image": "", "names": { "ar": "كوكتيل فريشلي الخاص", "en": "Freshly Special Cocktail", "de": "Freshly Spezial-Cocktail", "fr": "Cocktail Spécial Freshly", "ru": "Фирменный коктейль Freshly" } },
+    { "id": "ms_vanilla", "categoryId": "milkshake", "special": false, "priceEGP": 130, "priceEUR": 4, "image": "", "names": { "ar": "ميلك شيك فانيليا", "en": "Vanilla Milkshake", "de": "Vanille Milchshake", "fr": "Milkshake Vanille", "ru": "Ванильный милкшейк" } },
+    { "id": "ms_chocolate", "categoryId": "milkshake", "special": false, "priceEGP": 135, "priceEUR": 4.5, "image": "", "names": { "ar": "ميلك شيك شوكولاتة", "en": "Chocolate Milkshake", "de": "Schoko Milchshake", "fr": "Milkshake Chocolat", "ru": "Шоколадный милкшейк" } },
+    { "id": "ms_oreo", "categoryId": "milkshake", "special": true, "priceEGP": 150, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك أوريو", "en": "Oreo Milkshake", "de": "Oreo Milchshake", "fr": "Milkshake Oreo", "ru": "Милкшейк Орео" } },
+    { "id": "ms_lotus", "categoryId": "milkshake", "special": true, "priceEGP": 160, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك لوتس", "en": "Lotus Biscoff Shake", "de": "Lotus Milchshake", "fr": "Milkshake Lotus", "ru": "Милкшейк Лотус" } },
+    { "id": "sm_mango_passion", "categoryId": "smoothie", "special": true, "priceEGP": 145, "priceEUR": 4.5, "image": "", "names": { "ar": "سموزي مانجو باشن فروت", "en": "Mango Passion Smoothie", "de": "Mango-Maracuja Smoothie", "fr": "Smoothie Mangue Passion", "ru": "Смузи Манго-Маракуйя" } },
+    { "id": "sm_berry_mix", "categoryId": "smoothie", "special": false, "priceEGP": 150, "priceEUR": 5, "image": "", "names": { "ar": "سموزي ميكس بيري", "en": "Mixed Berry Smoothie", "de": "Beeren-Mix Smoothie", "fr": "Smoothie Fruits Rouges", "ru": "Ягодный смузи" } },
+    { "id": "mj_classic", "categoryId": "mojito", "special": false, "priceEGP": 115, "priceEUR": 4, "image": "", "names": { "ar": "موهيتو كلاسيك", "en": "Classic Mojito", "de": "Klassischer Mojito", "fr": "Mojito Classique", "ru": "Классический Мохито" } },
+    { "id": "mj_blue", "categoryId": "mojito", "special": true, "priceEGP": 130, "priceEUR": 4.5, "image": "", "names": { "ar": "بلو هاواي موهيتو", "en": "Blue Ocean Mojito", "de": "Blue Ocean Mojito", "fr": "Mojito Bleu Océan", "ru": "Голубой Мохито" } },
+    { "id": "ic_latte", "categoryId": "iced_coffee", "special": false, "priceEGP": 115, "priceEUR": 4, "image": "", "names": { "ar": "آيس لاتيه", "en": "Iced Caffè Latte", "de": "Eis-Latte", "fr": "Latte Glacé", "ru": "Айс Латте" } },
+    { "id": "ic_spanish", "categoryId": "iced_coffee", "special": true, "priceEGP": 135, "priceEUR": 4.5, "image": "", "names": { "ar": "سبانيش لاتيه مثلج", "en": "Iced Spanish Latte", "de": "Spanischer Eislatte", "fr": "Latte Espagnol Glacé", "ru": "Айс Испанский Латте" } },
+    { "id": "hd_espresso", "categoryId": "hot_drinks", "special": false, "priceEGP": 70, "priceEUR": 2.5, "image": "", "names": { "ar": "إسبريسو سينجل / دبل", "en": "Espresso Single / Double", "de": "Espresso", "fr": "Expresso", "ru": "Эспрессо" } },
+    { "id": "hd_cappuccino", "categoryId": "hot_drinks", "special": false, "priceEGP": 105, "priceEUR": 3.5, "image": "", "names": { "ar": "كابتشينو", "en": "Cappuccino", "de": "Cappuccino", "fr": "Cappuccino", "ru": "Капучино" } }
   ]
 };
 </script>
 
 <script>
+// دالة التحقق من كلمة السر المعقّدة قبل فتح لوحة التحكم (مكونة من أرقام وحروف وعلامات مميزة)
+window.checkAdminPassword = function() {
+  const enteredPass = prompt("🔐 أدخل كلمة السر للوصول إلى لوحة التحكم والإعدادات:");
+  // كلمة السر المعقدة المطلوبة: Freshly@2026#POS!
+  const correctPass = "Osama14492@";
+  if (enteredPass === correctPass) {
+    openAdminModal();
+  } else if (enteredPass !== null) {
+    alert("❌ كلمة السر غير صحيحة!");
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const I18N = {
     ar: {
@@ -731,75 +749,6 @@ document.addEventListener('DOMContentLoaded', () => {
       doneOrderBtn: "Done — Clear Cart",
       alertEmptyCart: "Your cart is empty!",
       alertNoTable: "⚠️ Please enter your table, room number, or name!"
-    },
-    de: {
-      searchPlaceholder: "Getränk suchen...",
-      allCategories: "Alle",
-      cartTitle: "Warenkorb",
-      tablePlaceholder: "📍 Tisch-, Zimmernummer oder Name...",
-      grandTotalLabel: "Gesamtsumme:",
-      sendOrderBtn: "🧾 Bestellung anzeigen",
-      emptyCart: "Warenkorb ist leer — Artikel antippen",
-      qrBannerTitle: "📱 Menü QR-Code",
-      qrBannerSub: "Mit Kamera scannen zum Bestellen",
-      qrShowBtn: "QR zeigen",
-      navQr: "QR-Code",
-      navAdmin: "Menü verwalten",
-      navContact: "Kontakt",
-      qrModalTitle: "Menü QR-Code",
-      qrModalDesc: "Scannen Sie mit der Kamera zum Bestellen",
-      closeBtn: "Schließen",
-      orderSummaryTitle: "✅ Bestellübersicht",
-      copyOrderBtn: "📋 Bestellung kopieren",
-      doneOrderBtn: "Fertig — Warenkorb leeren",
-      alertEmptyCart: "Warenkorb ist leer!",
-      alertNoTable: "⚠️ Bitte Tisch- oder Zimmernummer eingeben!"
-    },
-    fr: {
-      searchPlaceholder: "Rechercher une boisson...",
-      allCategories: "Tout",
-      cartTitle: "Panier",
-      tablePlaceholder: "📍 Numéro de table, chambre ou nom...",
-      grandTotalLabel: "Total général :",
-      sendOrderBtn: "🧾 Confirmer la commande",
-      emptyCart: "Panier vide — touchez un article",
-      qrBannerTitle: "📱 QR Code du Menu",
-      qrBannerSub: "Scannez pour parcourir et commander",
-      qrShowBtn: "Afficher",
-      navQr: "QR Code",
-      navAdmin: "Gérer le menu",
-      navContact: "Contact",
-      qrModalTitle: "QR Code du Menu",
-      qrModalDesc: "Scannez avec votre caméra pour commander",
-      closeBtn: "Fermer",
-      orderSummaryTitle: "✅ Résumé de la commande",
-      copyOrderBtn: "📋 Copier la commande",
-      doneOrderBtn: "Terminer — Vider le panier",
-      alertEmptyCart: "Votre panier est vide !",
-      alertNoTable: "⚠️ Veuillez entrer votre numéro de table ou chambre !"
-    },
-    ru: {
-      searchPlaceholder: "Поиск напитка...",
-      allCategories: "Все",
-      cartTitle: "Корзина",
-      tablePlaceholder: "📍 Номер стола, комнаты или имя...",
-      grandTotalLabel: "Итого:",
-      sendOrderBtn: "🧾 Подтвердить заказ",
-      emptyCart: "Корзина пуста — нажмите на товар",
-      qrBannerTitle: "📱 QR код Меню",
-      qrBannerSub: "Сканируйте камерой для заказа",
-      qrShowBtn: "Показать QR",
-      navQr: "QR код",
-      navAdmin: "Управление",
-      navContact: "Контакты",
-      qrModalTitle: "QR код Меню",
-      qrModalDesc: "Сканируйте камерой телефона для заказа",
-      closeBtn: "Закрыть",
-      orderSummaryTitle: "✅ Детали заказа",
-      copyOrderBtn: "📋 Скопировать заказ",
-      doneOrderBtn: "Готово — Очистить корзину",
-      alertEmptyCart: "Корзина пуста!",
-      alertNoTable: "⚠️ Пожалуйста, введите номер стола или комнаты!"
     }
   };
 
@@ -834,28 +783,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function makeDrinkImage(label, catId) {
     const colors = {
-      fresh_juice: '#f59e0b',
-      milkshake: '#ec4899',
-      smoothie: '#8b5cf6',
-      mojito: '#10b981',
-      iced_coffee: '#d97706',
-      frappe: '#b45309',
-      matcha: '#22c55e',
-      iced_tea: '#eab308',
-      fruit_platters: '#f97316',
-      hot_drinks: '#ef4444',
-      soft_drinks: '#3b82f6',
-      energy: '#06b6d4'
+      fresh_juice: '#f59e0b', milkshake: '#ec4899', smoothie: '#8b5cf6', mojito: '#10b981',
+      iced_coffee: '#d97706', frappe: '#b45309', matcha: '#22c55e', iced_tea: '#eab308',
+      fruit_platters: '#f97316', hot_drinks: '#ef4444', soft_drinks: '#3b82f6', energy: '#06b6d4'
     };
     const accent = colors[catId] || '#d4af37';
     const clean = String(label || 'FRESHLY').replace(/[<>&'"]/g, '').substring(0, 20);
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="220" height="140" viewBox="0 0 220 140">
-      <defs>
-        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#1e2433"/>
-          <stop offset="100%" stop-color="#0f1219"/>
-        </linearGradient>
-      </defs>
+      <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1e2433"/><stop offset="100%" stop-color="#0f1219"/></linearGradient></defs>
       <rect width="220" height="140" fill="url(#bg)"/>
       <circle cx="110" cy="52" r="32" fill="${accent}" opacity="0.18"/>
       <path d="M94 32 L126 32 L121 74 L99 74 Z" fill="${accent}" opacity="0.38" stroke="${accent}" stroke-width="2.5"/>
@@ -1332,5 +1267,4 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
 });
 </script>
-</body>
-</html>
+</body></html>
