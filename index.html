@@ -1267,4 +1267,33 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
 });
 </script>
+<!-- أضف كود الـ Firebase هنا -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBMH6XnDvVz...",
+    authDomain: "freshly-pos.firebaseapp.com",
+    projectId: "freshly-pos",
+    storageBucket: "freshly-pos.appspot.com",
+    messagingSenderId: "92150322225",
+    appId: "1:92150322225:web:ced60779ef510197863110",
+    databaseURL: "https://freshly-pos-default-rtdb.firebaseio.com"
+  };
+  if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+  const cloudDb = firebase.database();
+
+  function sendOrderToCloudFirebase(customerName, cartItems, totalAmount) {
+    const orderId = 'WEB-' + Math.floor(1000 + Math.random() * 9000);
+    cloudDb.ref('pendingOrders/' + orderId).set({
+      id: orderId,
+      customer: customerName,
+      cart: cartItems,
+      total: totalAmount,
+      time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      date: new Date().toISOString().split('T')[0],
+      status: 'pending'
+    });
+  }
+</script>
 </body></html>
