@@ -248,13 +248,18 @@
 
   .item-thumb {
     width: 100%;
-    height: 65px;
+    aspect-ratio: 4 / 5;
+    min-height: 155px;
+    max-height: 210px;
     border-radius: 5px;
     overflow: hidden;
     background: #10131a;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .item-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .item-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
   .item-name {
     font-size: 0.7rem;
@@ -649,147 +654,1825 @@
 
 <script id="menuDataScript">
 const INITIAL_MENU_DATA = {
-  "contact": { "whatsapp": "", "phones": "", "address": "", "social": "" },
+  "contact": {
+    "whatsapp": "",
+    "phones": "",
+    "address": "",
+    "social": ""
+  },
   "categories": [
-    { "id": "milkshake", "names": { "ar": "ميلك شيك", "en": "Milkshake", "de": "Milchshake", "fr": "Milkshake", "ru": "Милкшейк" } },
-    { "id": "iced_coffee", "names": { "ar": "آيس كوفي", "en": "Iced Coffee", "de": "Eiskaffee", "fr": "Café Glacé", "ru": "Айс Кофе" } },
-    { "id": "fresh_juice", "names": { "ar": "عصائر فريش", "en": "Fresh Juices", "de": "Frische Säfte", "fr": "Jus Frais", "ru": "Свежие соки" } },
-    { "id": "fruit_platters", "names": { "ar": "أطباق فاكهة فريش", "en": "Fruit Platters", "de": "Obstteller", "fr": "Assiettes Fruits", "ru": "Фруктовые тарелки" } },
-    { "id": "matcha", "names": { "ar": "الماتشا", "en": "Matcha", "de": "Matcha", "fr": "Matcha", "ru": "Матча" } },
-    { "id": "frappe", "names": { "ar": "فرابيه", "en": "Frappe", "de": "Frappé", "fr": "Frappé", "ru": "Фраппе" } },
-    { "id": "iced_tea", "names": { "ar": "آيس تي", "en": "Iced Tea", "de": "Eistee", "fr": "Thé Glacé", "ru": "Айс Ти" } },
-    { "id": "smoothie", "names": { "ar": "سموزي", "en": "Smoothie", "de": "Smoothie", "fr": "Smoothie", "ru": "Смузи" } },
-    { "id": "mojito", "names": { "ar": "موهيتو", "en": "Mojito", "de": "Mojito", "fr": "Mojito", "ru": "Мохито" } },
-    { "id": "hot_drinks", "names": { "ar": "مشروبات ساخنة", "en": "Hot Drinks", "de": "Heißgetränke", "fr": "Boissons Chaudes", "ru": "Горячие напитки" } },
-    { "id": "soft_drinks", "names": { "ar": "سوفت درينكس", "en": "Soft Drinks", "de": "Softdrinks", "fr": "Boissons Fraîches", "ru": "Напитки" } },
-    { "id": "asian_drinks", "names": { "ar": "مشروبات آسيوية", "en": "Asian Drinks", "de": "Asiatische Getränke", "fr": "Boissons Asiatiques", "ru": "Азиатские напитки" } },
-    { "id": "energy_refresh", "names": { "ar": "الطاقة والانتعاش", "en": "Energy & Refreshment", "de": "Energie", "fr": "Énergie", "ru": "Энергия" } }
+    {
+      "id": "milkshake",
+      "names": {
+        "ar": "ميلك شيك",
+        "en": "Milkshake",
+        "de": "Milchshake",
+        "fr": "Milkshake",
+        "ru": "Милкшейк"
+      }
+    },
+    {
+      "id": "iced_coffee",
+      "names": {
+        "ar": "آيس كوفي",
+        "en": "Iced Coffee",
+        "de": "Eiskaffee",
+        "fr": "Café Glacé",
+        "ru": "Айс Кофе"
+      }
+    },
+    {
+      "id": "fresh_juice",
+      "names": {
+        "ar": "عصائر فريش",
+        "en": "Fresh Juices",
+        "de": "Frische Säfte",
+        "fr": "Jus Frais",
+        "ru": "Свежие соки"
+      }
+    },
+    {
+      "id": "fruit_platters",
+      "names": {
+        "ar": "أطباق فاكهة فريش",
+        "en": "Fruit Platters",
+        "de": "Obstteller",
+        "fr": "Assiettes Fruits",
+        "ru": "Фруктовые тарелки"
+      }
+    },
+    {
+      "id": "matcha",
+      "names": {
+        "ar": "الماتشا",
+        "en": "Matcha",
+        "de": "Matcha",
+        "fr": "Matcha",
+        "ru": "Матча"
+      }
+    },
+    {
+      "id": "frappe",
+      "names": {
+        "ar": "فرابيه",
+        "en": "Frappe",
+        "de": "Frappé",
+        "fr": "Frappé",
+        "ru": "Фраппе"
+      }
+    },
+    {
+      "id": "iced_tea",
+      "names": {
+        "ar": "آيس تي",
+        "en": "Iced Tea",
+        "de": "Eistee",
+        "fr": "Thé Glacé",
+        "ru": "Айс Ти"
+      }
+    },
+    {
+      "id": "smoothie",
+      "names": {
+        "ar": "سموزي",
+        "en": "Smoothie",
+        "de": "Smoothie",
+        "fr": "Smoothie",
+        "ru": "Смузи"
+      }
+    },
+    {
+      "id": "mojito",
+      "names": {
+        "ar": "موهيتو",
+        "en": "Mojito",
+        "de": "Mojito",
+        "fr": "Mojito",
+        "ru": "Мохито"
+      }
+    },
+    {
+      "id": "hot_drinks",
+      "names": {
+        "ar": "مشروبات ساخنة",
+        "en": "Hot Drinks",
+        "de": "Heißgetränke",
+        "fr": "Boissons Chaudes",
+        "ru": "Горячие напитки"
+      }
+    },
+    {
+      "id": "soft_drinks",
+      "names": {
+        "ar": "سوفت درينكس",
+        "en": "Soft Drinks",
+        "de": "Softdrinks",
+        "fr": "Boissons Fraîches",
+        "ru": "Напитки"
+      }
+    },
+    {
+      "id": "asian_drinks",
+      "names": {
+        "ar": "مشروبات آسيوية",
+        "en": "Asian Drinks",
+        "de": "Asiatische Getränke",
+        "fr": "Boissons Asiatiques",
+        "ru": "Азиатские напитки"
+      }
+    },
+    {
+      "id": "energy_refresh",
+      "names": {
+        "ar": "الطاقة والانتعاش",
+        "en": "Energy & Refreshment",
+        "de": "Energie",
+        "fr": "Énergie",
+        "ru": "Энергия"
+      }
+    }
   ],
   "items": [
-    { "id": "ms_mango", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : مانجو", "en": "Milkshake : Mango", "de": "Milchshake : Mango", "fr": "Milkshake : Mangue", "ru": "Милкшейк : Манго" } },
-    { "id": "ms_strawberry", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : فراولة", "en": "Milkshake : Strawberry", "de": "Milchshake : Erdbeere", "fr": "Milkshake : Fraise", "ru": "Милкшейк : Клубника" } },
-    { "id": "ms_chocolate", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : شيكولاتة", "en": "Milkshake : Chocolate", "de": "Milchshake : Schokolade", "fr": "Milkshake : Chocolat", "ru": "Милкшейк : Шоколад" } },
-    { "id": "ms_caramel", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : كراميل", "en": "Milkshake : Caramel", "de": "Milchshake : Karamell", "fr": "Milkshake : Caramel", "ru": "Милкшейк : Карамель" } },
-    { "id": "ms_oreo", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : اوريو", "en": "Milkshake : Oreo", "de": "Milchshake : Oreo", "fr": "Milkshake : Oreo", "ru": "Милкшейк : Орео" } },
-    { "id": "ms_passion", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : باشون فروت", "en": "Milkshake : Passion Fruit", "de": "Milchshake : Maracuja", "fr": "Milkshake : Fruit de la Passion", "ru": "Милкшейк : Маракуйя" } },
-    { "id": "ms_kiwi", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118600.jpg", "names": { "ar": "ميلك شيك : كيوي", "en": "Milkshake : Kiwi", "de": "Milchshake : Kiwi", "fr": "Milkshake : Kiwi", "ru": "Милкшейк : Киви" } },
-    { "id": "ms_pina", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118603.jpg", "names": { "ar": "ميلك شيك : بينا كولادا", "en": "Milkshake : Pina Colada", "de": "Milchshake : Pina Colada", "fr": "Milkshake : Pina Colada", "ru": "Милкшейк : Пина Колада" } },
-    { "id": "ms_pineapple", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : أناناس", "en": "Milkshake : Pineapple", "de": "Milchshake : Ananas", "fr": "Milkshake : Ananas", "ru": "Милкшейк : Ананас" } },
-    { "id": "ms_blueberry", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : بلوبيري", "en": "Milkshake : Blueberry", "de": "Milchshake : Blaubeere", "fr": "Milkshake : Myrtille", "ru": "Милкшейк : Черника" } },
-    { "id": "ms_mixberry", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : ميكس بيري", "en": "Milkshake : Mix Berry", "de": "Milchshake : Beerenmix", "fr": "Milkshake : Fruits Rouges", "ru": "Милкшейк : Микс Ягод" } },
-    { "id": "ms_pistachio", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : بستاشيو", "en": "Milkshake : Pistachio", "de": "Milchshake : Pistazie", "fr": "Milkshake : Pistache", "ru": "Милкшейк : Фисташка" } },
-    { "id": "ms_lotus", "categoryId": "milkshake", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "ميلك شيك : لوتس", "en": "Milkshake : Lotus", "de": "Milchshake : Lotus", "fr": "Milkshake : Lotus", "ru": "Милкшейк : Лотус" } },
-
-    { "id": "ic_pistachio", "categoryId": "iced_coffee", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "1000118585.jpg", "names": { "ar": "آيس كوفي : بستاشيو", "en": "Iced Coffee : Pistachio", "de": "Eiskaffee : Pistazie", "fr": "Café Glacé : Pistache", "ru": "Айс Кофе : Фисташка" } },
-    { "id": "ic_caramel_hazelnut", "categoryId": "iced_coffee", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118591.jpg", "names": { "ar": "آيس كوفي : كراميل بندق", "en": "Iced Coffee : Caramel Hazelnut", "de": "Eiskaffee : Karamell-Haselnuss", "fr": "Café Glacé : Caramel Noisette", "ru": "Айс Кофе : Карамель Фундук" } },
-    { "id": "ic_mocha", "categoryId": "iced_coffee", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118586.jpg", "names": { "ar": "آيس كوفي : آيس موكا", "en": "Iced Coffee : Iced Mocha", "de": "Eiskaffee : Eismokka", "fr": "Café Glacé : Mocha Glacé", "ru": "Айс Кофе : Айс Мокка" } },
-    { "id": "ic_hazelnut", "categoryId": "iced_coffee", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118588.jpg", "names": { "ar": "آيس كوفي : بندق", "en": "Iced Coffee : Hazelnut", "de": "Eiskaffee : Haselnuss", "fr": "Café Glacé : Noisette", "ru": "Айс Кофе : Фундук" } },
-    { "id": "ic_caramel", "categoryId": "iced_coffee", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "1000118584.jpg", "names": { "ar": "آيس كوفي : كراميل", "en": "Iced Coffee : Caramel", "de": "Eiskaffee : Karamell", "fr": "Café Glacé : Caramel", "ru": "Айс Кофе : Карамель" } },
-    { "id": "ic_classic", "categoryId": "iced_coffee", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118587.jpg", "names": { "ar": "آيس كوفي : كلاسيك", "en": "Iced Coffee : Classic", "de": "Eiskaffee : Klassisch", "fr": "Café Glacé : Classique", "ru": "Айс Кофе : Классик" } },
-    { "id": "ic_latte", "categoryId": "iced_coffee", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118590.jpg", "names": { "ar": "آيس كوفي : آيس لاتيه", "en": "Iced Coffee : Iced Latte", "de": "Eiskaffee : Eis-Latte", "fr": "Café Glacé : Latte Glacé", "ru": "Айс Кофе : Айс Латте" } },
-    { "id": "ic_chocolate", "categoryId": "iced_coffee", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "1000118583.jpg", "names": { "ar": "آيس كوفي : شيكولاتة", "en": "Iced Coffee : Chocolate", "de": "Eiskaffee : Schokolade", "fr": "Café Glacé : Chocolat", "ru": "Айс Кофе : Шоколад" } },
-    { "id": "ic_spanish", "categoryId": "iced_coffee", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118589.jpg", "names": { "ar": "آيس كوفي : آيس سبانيش لاتيه", "en": "Iced Coffee : Iced Spanish Latte", "de": "Eiskaffee : Spanischer Eislatte", "fr": "Café Glacé : Latte Espagnol Glacé", "ru": "Айс Кофе : Айс Испанский Латте" } },
-
-    { "id": "fj_pomegranate", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118629.jpg", "names": { "ar": "عصائر فريش : رمان", "en": "Fresh Juices : Pomegranate", "de": "Frische Säfte : Granatapfel", "fr": "Jus Frais : Grenade", "ru": "Свежие соки : Гранат" } },
-    { "id": "fj_apple", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118628.jpg", "names": { "ar": "عصائر فريش : تفاح", "en": "Fresh Juices : Apple", "de": "Frische Säfte : Apfel", "fr": "Jus Frais : Pomme", "ru": "Свежие соки : Яблоко" } },
-    { "id": "fj_lemon_mint", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118631.jpg", "names": { "ar": "عصائر فريش : ليمون نعناع", "en": "Fresh Juices : Lemon Mint", "de": "Frische Säfte : Zitrone-Minze", "fr": "Jus Frais : Citron Menthe", "ru": "Свежие соки : Лимон Мята" } },
-    { "id": "fj_strawberry", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118625.jpg", "names": { "ar": "عصائر فريش : فراولة", "en": "Fresh Juices : Strawberry", "de": "Frische Säfte : Erdbeere", "fr": "Jus Frais : Fraise", "ru": "Свежие соки : Клубника" } },
-    { "id": "fj_mango", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118624.jpg", "names": { "ar": "عصائر فريش : مانجو", "en": "Fresh Juices : Mango", "de": "Frische Säfte : Mango", "fr": "Jus Frais : Mangue", "ru": "Свежие соки : Манго" } },
-    { "id": "fj_banana_milk", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118626.jpg", "names": { "ar": "عصائر فريش : موز باللبن", "en": "Fresh Juices : Banana with Milk", "de": "Frische Säfte : Banane mit Milch", "fr": "Jus Frais : Banane Lait", "ru": "Свежие соки : Банан с молоком" } },
-    { "id": "fj_watermelon", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118627.jpg", "names": { "ar": "عصائر فريش : بطيخ", "en": "Fresh Juices : Watermelon", "de": "Frische Säfte : Wassermelone", "fr": "Jus Frais : Pastèque", "ru": "Свежие соки : Арбуз" } },
-    { "id": "fj_orange", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118623.jpg", "names": { "ar": "عصائر فريش : برتقال", "en": "Fresh Juices : Orange", "de": "Frische Säfte : Orange", "fr": "Jus Frais : Orange", "ru": "Свежие соки : Апельсин" } },
-    { "id": "fj_cantaloupe", "categoryId": "fresh_juice", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118630.jpg", "names": { "ar": "عصائر فريش : كانتلوب", "en": "Fresh Juices : Cantaloupe", "de": "Frische Säfte : Melone", "fr": "Jus Frais : Melon", "ru": "Свежие соки : Дыня" } },
-
-    { "id": "fp_small", "categoryId": "fruit_platters", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "اطباق فاكهة فريش : طبق صغير", "en": "Fruit Platters : Small Plate", "de": "Obstteller : Kleiner Teller", "fr": "Assiettes Fruits : Petite Assiette", "ru": "Фруктовые тарелки : Маленькая тарелка" } },
-    { "id": "fp_medium", "categoryId": "fruit_platters", "special": false, "priceEGP": 450, "priceEUR": 7, "image": "", "names": { "ar": "اطباق فاكهة فريش : طبق وسط", "en": "Fruit Platters : Medium Plate", "de": "Obstteller : Mittlerer Teller", "fr": "Assiettes Fruits : Assiette Moyenne", "ru": "Фруктовые тарелки : Средняя тарелка" } },
-    { "id": "fp_large", "categoryId": "fruit_platters", "special": true, "priceEGP": 600, "priceEUR": 10, "image": "", "names": { "ar": "اطباق فاكهة فريش : طبق كبير", "en": "Fruit Platters : Large Plate", "de": "Obstteller : Großer Teller", "fr": "Assiettes Fruits : Grande Assiette", "ru": "Фруктовые тарелки : Большая тарелка" } },
-
-    { "id": "mc_blueberry", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118640.jpg", "names": { "ar": "الماتشا : بلوبيري", "en": "Matcha : Blueberry", "de": "Matcha : Blaubeere", "fr": "Matcha : Myrtille", "ru": "Матча : Черника" } },
-    { "id": "mc_coconut", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118637.jpg", "names": { "ar": "الماتشا : جوز هند", "en": "Matcha : Coconut", "de": "Matcha : Kokosnuss", "fr": "Matcha : Noix de Coco", "ru": "Матча : Кокос" } },
-    { "id": "mc_mango", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118638.jpg", "names": { "ar": "الماتشا : مانجو", "en": "Matcha : Mango", "de": "Matcha : Mango", "fr": "Matcha : Mangue", "ru": "Матча : Манго" } },
-    { "id": "mc_classic", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118633.jpg", "names": { "ar": "الماتشا : كلاسيك", "en": "Matcha : Classic", "de": "Matcha : Klassisch", "fr": "Matcha : Classique", "ru": "Матча : Классик" } },
-    { "id": "mc_strawberry", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118639.jpg", "names": { "ar": "الماتشا : فراولة", "en": "Matcha : Strawberry", "de": "Matcha : Erdbeere", "fr": "Matcha : Fraise", "ru": "Матча : Клубника" } },
-    { "id": "mc_pistachio", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118641.jpg", "names": { "ar": "الماتشا : بستاشيو", "en": "Matcha : Pistachio", "de": "Matcha : Pistazie", "fr": "Matcha : Pistache", "ru": "Матча : Фисташка" } },
-    { "id": "mc_caramel", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118636.jpg", "names": { "ar": "الماتشا : كراميل", "en": "Matcha : Caramel", "de": "Matcha : Karamell", "fr": "Matcha : Caramel", "ru": "Матча : Карамель" } },
-    { "id": "mc_vanilla", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118635.jpg", "names": { "ar": "الماتشا : فانيليا", "en": "Matcha : Vanilla", "de": "Matcha : Vanille", "fr": "Matcha : Vanille", "ru": "Матча : Ваниль" } },
-    { "id": "mc_espresso", "categoryId": "matcha", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118634.jpg", "names": { "ar": "الماتشا : اسبريسو", "en": "Matcha : Espresso", "de": "Matcha : Espresso", "fr": "Matcha : Expresso", "ru": "Матча : Эспрессо" } },
-
-    { "id": "fr_caramel_cookies", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : كراميل كوكيز", "en": "Frappe : Caramel Cookies", "de": "Frappé : Karamell-Cookies", "fr": "Frappé : Cookies Caramel", "ru": "Фраппе : Карамель Печенье" } },
-    { "id": "fr_oreo", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : اوريو", "en": "Frappe : Oreo", "de": "Frappé : Oreo", "fr": "Frappé : Oreo", "ru": "Фраппе : Орео" } },
-    { "id": "fr_hazelnut", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : بندق", "en": "Frappe : Hazelnut", "de": "Frappé : Haselnuss", "fr": "Frappé : Noisette", "ru": "Фраппе : Фундук" } },
-    { "id": "fr_lotus", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : لوتس", "en": "Frappe : Lotus", "de": "Frappé : Lotus", "fr": "Frappé : Lotus", "ru": "Фраппе : Лотус" } },
-    { "id": "fr_classic", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : كلاسيك", "en": "Frappe : Classic", "de": "Frappé : Klassisch", "fr": "Frappé : Classique", "ru": "Фраппе : Классик" } },
-    { "id": "fr_caramel", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : كراميل", "en": "Frappe : Caramel", "de": "Frappé : Karamell", "fr": "Frappé : Caramel", "ru": "Фраппе : Карамель" } },
-    { "id": "fr_choc_hazelnut", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : شيكولاتة بندق", "en": "Frappe : Chocolate Hazelnut", "de": "Frappé : Schoko-Haselnuss", "fr": "Frappé : Chocolat Noisette", "ru": "Фраппе : Шоколад Фундук" } },
-    { "id": "fr_chocolate", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : شيكولاتة", "en": "Frappe : Chocolate", "de": "Frappé : Schokolade", "fr": "Frappé : Chocolat", "ru": "Фраппе : Шоколад" } },
-    { "id": "fr_pistachio", "categoryId": "frappe", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "فرابيه : بستاشيو", "en": "Frappe : Pistachio", "de": "Frappé : Pistazie", "fr": "Frappé : Pistache", "ru": "Фраппе : Фисташка" } },
-
-    { "id": "it_peach", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118685.jpg", "names": { "ar": "آيس تي : خوخ", "en": "Iced Tea : Peach", "de": "Eistee : Pfirsich", "fr": "Thé Glacé : Pêche", "ru": "Айс Ти : Персик" } },
-    { "id": "it_passion", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118692.jpg", "names": { "ar": "آيس تي : باشون فروت", "en": "Iced Tea : Passion Fruit", "de": "Eistee : Maracuja", "fr": "Thé Glacé : Fruit de la Passion", "ru": "Айс Ти : Маракуйя" } },
-    { "id": "it_orange", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118690.jpg", "names": { "ar": "آيس تي : برتقال", "en": "Iced Tea : Orange", "de": "Eistee : Orange", "fr": "Thé Glacé : Orange", "ru": "Айс Ти : Апельсин" } },
-    { "id": "it_strawberry", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118682.jpg", "names": { "ar": "آيس تي : فراولة", "en": "Iced Tea : Strawberry", "de": "Eistee : Erdbeere", "fr": "Thé Glacé : Fraise", "ru": "Айс Ти : Клубника" } },
-    { "id": "it_blueberry", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118688.jpg", "names": { "ar": "آيس تي : بلوبيري", "en": "Iced Tea : Blueberry", "de": "Eistee : Blaubeere", "fr": "Thé Glacé : Myrtille", "ru": "Айс Ти : Черника" } },
-    { "id": "it_mango", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118687.jpg", "names": { "ar": "آيس تي : مانجو", "en": "Iced Tea : Mango", "de": "Eistee : Mango", "fr": "Thé Glacé : Mangue", "ru": "Айс Ти : Манго" } },
-    { "id": "it_classic", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118691.jpg", "names": { "ar": "آيس تي : كلاسيك", "en": "Iced Tea : Classic", "de": "Eistee : Klassisch", "fr": "Thé Glacé : Classique", "ru": "Айс Ти : Классик" } },
-    { "id": "it_apple", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118693.jpg", "names": { "ar": "آيس تي : تفاح", "en": "Iced Tea : Apple", "de": "Eistee : Apfel", "fr": "Thé Glacé : Pomme", "ru": "Айс Ти : Яблоко" } },
-    { "id": "it_lemon", "categoryId": "iced_tea", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118683.jpg", "names": { "ar": "آيس تي : ليمون", "en": "Iced Tea : Lemon", "de": "Eistee : Zitrone", "fr": "Thé Glacé : Citron", "ru": "Айс Ти : Лимон" } },
-
-    { "id": "sm_lemon_mint", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118660.jpg", "names": { "ar": "سموزي : ليمون نعناع", "en": "Smoothie : Lemon Mint", "de": "Smoothie : Zitrone-Minze", "fr": "Smoothie : Citron Menthe", "ru": "Смузи : Лимон Мята" } },
-    { "id": "sm_banana", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118657.jpg", "names": { "ar": "سموزي : موز", "en": "Smoothie : Banana", "de": "Smoothie : Banane", "fr": "Smoothie : Banane", "ru": "Смузи : Банан" } },
-    { "id": "sm_mango", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118653.jpg", "names": { "ar": "سموزي : مانجو", "en": "Smoothie : Mango", "de": "Smoothie : Mango", "fr": "Smoothie : Mangue", "ru": "Смузи : Манго" } },
-    { "id": "sm_watermelon", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118654.jpg", "names": { "ar": "سموزي : بطيخ", "en": "Smoothie : Watermelon", "de": "Smoothie : Wassermelone", "fr": "Smoothie : Pastèque", "ru": "Смузи : Арбуз" } },
-    { "id": "sm_cantaloupe", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118659.jpg", "names": { "ar": "سموزي : كانتلوب", "en": "Smoothie : Cantaloupe", "de": "Smoothie : Melone", "fr": "Smoothie : Melon", "ru": "Смузи : Дыня" } },
-    { "id": "sm_passion", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118661.jpg", "names": { "ar": "سموزي : باشون فروت", "en": "Smoothie : Passion Fruit", "de": "Smoothie : Maracuja", "fr": "Smoothie : Fruit de la Passion", "ru": "Смузи : Маракуйя" } },
-    { "id": "sm_strawberry", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118656.jpg", "names": { "ar": "سموزي : فراولة", "en": "Smoothie : Strawberry", "de": "Smoothie : Erdbeere", "fr": "Smoothie : Fraise", "ru": "Смузи : Клубника" } },
-    { "id": "sm_blueberry", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118655.jpg", "names": { "ar": "سموزي : بلوبيري", "en": "Smoothie : Blueberry", "de": "Smoothie : Blaubeere", "fr": "Smoothie : Myrtille", "ru": "Смузи : Черника" } },
-    { "id": "sm_peach", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118658.jpg", "names": { "ar": "سموزي : خوخ", "en": "Smoothie : Peach", "de": "Smoothie : Pfirsich", "fr": "Smoothie : Pêche", "ru": "Смузи : Персик" } },
-    { "id": "sm_pineapple", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "سموزي : أناناس", "en": "Smoothie : Pineapple", "de": "Smoothie : Ananas", "fr": "Smoothie : Ananas", "ru": "Смузи : Ананас" } },
-    { "id": "sm_kiwi_lemon_mint", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118599.jpg", "names": { "ar": "سموزي : كيوي ليمون نعناع", "en": "Smoothie : Kiwi Lemon Mint", "de": "Smoothie : Kiwi-Zitrone-Minze", "fr": "Smoothie : Kiwi Citron Menthe", "ru": "Смузи : Киви Лимон Мята" } },
-    { "id": "sm_peach_orange", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118598.jpg", "names": { "ar": "سموزي : خوخ برتقال", "en": "Smoothie : Peach Orange", "de": "Smoothie : Pfirsich-Orange", "fr": "Smoothie : Pêche Orange", "ru": "Смузи : Персик Апельсин" } },
-    { "id": "sm_mixberry", "categoryId": "smoothie", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118601.jpg", "names": { "ar": "سموزي : ميكس بيري", "en": "Smoothie : Mixberry", "de": "Smoothie : Beeren-Mix-Smoothie", "fr": "Smoothie : Smoothie aux Fruits Rouges", "ru": "Смузи : Миксбери" } },
-    { "id": "sm_taste_of_love", "categoryId": "smoothie", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "1000118596.jpg", "names": { "ar": "سموزي : تيست اوف لوف", "en": "Smoothie : Taste Of Love", "de": "Smoothie : Geschmack der Liebe", "fr": "Smoothie : Goût de l'Amour", "ru": "Смузи : Вкус любви" } },
-
-    { "id": "mj_classic", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118644.jpg", "names": { "ar": "موهيتو : كلاسيك", "en": "Mojito : Classic", "de": "Mojito : Klassisch", "fr": "Mojito : Classique", "ru": "Мохито : Классик" } },
-    { "id": "mj_orange", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118650.jpg", "names": { "ar": "موهيتو : برتقال", "en": "Mojito : Orange", "de": "Mojito : Orange", "fr": "Mojito : Orange", "ru": "Мохито : Апельсин" } },
-    { "id": "mj_mango", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118645.jpg", "names": { "ar": "موهيتو : مانجو", "en": "Mojito : Mango", "de": "Mojito : Mango", "fr": "Mojito : Mangue", "ru": "Мохито : Манго" } },
-    { "id": "mj_strawberry", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118646.jpg", "names": { "ar": "موهيتو : فراولة", "en": "Mojito : Strawberry", "de": "Mojito : Erdbeere", "fr": "Mojito : Fraise", "ru": "Мохито : Клубника" } },
-    { "id": "mj_peach", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118649.jpg", "names": { "ar": "موهيتو : خوخ", "en": "Mojito : Peach", "de": "Mojito : Pfirsich", "fr": "Mojito : Pêche", "ru": "Мохито : Персик" } },
-    { "id": "mj_blueberry", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118647.jpg", "names": { "ar": "موهيتو : بلوبيري", "en": "Mojito : Blueberry", "de": "Mojito : Blaubeere", "fr": "Mojito : Myrtille", "ru": "Мохито : Черника" } },
-    { "id": "mj_pineapple", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "موهيتو : أناناس", "en": "Mojito : Pineapple", "de": "Mojito : Ananas", "fr": "Mojito : Ananas", "ru": "Мохито : Ананас" } },
-    { "id": "mj_kiwi", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "موهيتو : كيوي", "en": "Mojito : Kiwi", "de": "Mojito : Kiwi", "fr": "Mojito : Kiwi", "ru": "Мохито : Киви" } },
-    { "id": "mj_blue_ocean", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118648.jpg", "names": { "ar": "موهيتو : بلو اوشن", "en": "Mojito : Blue Ocean", "de": "Mojito : Blue Ocean", "fr": "Mojito : Bleu Océan", "ru": "Мохито : Голубой Океан" } },
-    { "id": "mj_red_bull", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "موهيتو : ريد بول", "en": "Mojito : Red Bull", "de": "Mojito : Red Bull", "fr": "Mojito : Red Bull", "ru": "Мохито : Ред Булл" } },
-    { "id": "mj_red_sea", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118597.jpg", "names": { "ar": "موهيتو : ريد سي", "en": "Mojito : Red Sea Mojito", "de": "Mojito : Rotes Meer Mojito", "fr": "Mojito : Mojito de la Mer Rouge", "ru": "Мохито : Мохито Красное море" } },
-    { "id": "mj_winter_light", "categoryId": "mojito", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118602.jpg", "names": { "ar": "موهيتو : وينتر لايت", "en": "Mojito : Winter light Mojito", "de": "Mojito : Winterlicht-Mojito", "fr": "Mojito : Mojito Lumière d'Hiver", "ru": "Мохито : Зимний свет" } },
-
-    { "id": "hd_turkish", "categoryId": "hot_drinks", "special": false, "priceEGP": 200, "priceEUR": 3, "image": "1000118663.jpg", "names": { "ar": "مشروبات ساخنة : قهوة تركي", "en": "Hot Drinks : Turkish Coffee", "de": "Heißgetränke : Türkischer Kaffee", "fr": "Boissons Chaudes : Café Turc", "ru": "Горячие напитки : Турецкий кофе" } },
-    { "id": "hd_french", "categoryId": "hot_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118664.jpg", "names": { "ar": "مشروبات ساخنة : قهوة فرنساوي", "en": "Hot Drinks : French Coffee", "de": "Heißgetränke : Französischer Kaffee", "fr": "Boissons Chaudes : Café Français", "ru": "Горячие напитки : Французский кофе" } },
-    { "id": "hd_spanish_latte", "categoryId": "hot_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118668.jpg", "names": { "ar": "مشروبات ساخنة : سبانيش لاتيه", "en": "Hot Drinks : Spanish Latte", "de": "Heißgetränke : Spanischer Latte", "fr": "Boissons Chaudes : Latte Espagnol", "ru": "Горячие напитки : Испанский латте" } },
-    { "id": "hd_pistachio_latte", "categoryId": "hot_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118666.jpg", "names": { "ar": "مشروبات ساخنة : بستاشيو لاتيه", "en": "Hot Drinks : Pistachio Latte", "de": "Heißgetränke : Pistazien Latte", "fr": "Boissons Chaudes : Latte Pistache", "ru": "Горячие напитки : Фисташковый латте" } },
-    { "id": "hd_double_macchiato", "categoryId": "hot_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118669.jpg", "names": { "ar": "مشروبات ساخنة : دبل ميكاتو", "en": "Hot Drinks : Double Macchiato", "de": "Heißgetränke : Doppelter Macchiato", "fr": "Boissons Chaudes : Double Macchiato", "ru": "Горячие напитки : Двойной маккиато" } },
-    { "id": "hd_latte", "categoryId": "hot_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118665.jpg", "names": { "ar": "مشروبات ساخنة : لاتيه", "en": "Hot Drinks : Caffè Latte", "de": "Heißgetränke : Caffè Latte", "fr": "Boissons Chaudes : Caffè Latte", "ru": "Горячие напитки : Латте" } },
-    { "id": "hd_cappuccino", "categoryId": "hot_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118667.jpg", "names": { "ar": "مشروبات ساخنة : كابتشينو", "en": "Hot Drinks : Cappuccino", "de": "Heißgetränke : Cappuccino", "fr": "Boissons Chaudes : Cappuccino", "ru": "Горячие напитки : Капучино" } },
-    { "id": "hd_american", "categoryId": "hot_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118671.jpg", "names": { "ar": "مشروبات ساخنة : امريكان كوفي", "en": "Hot Drinks : American Coffee", "de": "Heißgetränke : Amerikanischer Kaffee", "fr": "Boissons Chaudes : Café Américain", "ru": "Горячие напитки : Американский кофе" } },
-    { "id": "hd_caramel_latte", "categoryId": "hot_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "1000118670.jpg", "names": { "ar": "مشروبات ساخنة : لاتيه كراميل", "en": "Hot Drinks : Caramel Latte", "de": "Heißgetränke : Karamell Latte", "fr": "Boissons Chaudes : Latte Caramel", "ru": "Горячие напитки : Карамельный латте" } },
-    { "id": "hd_hot_matcha", "categoryId": "hot_drinks", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "1000118605.jpg", "names": { "ar": "مشروبات ساخنة : هوت ماتشا", "en": "Hot Drinks : Hot Matcha", "de": "Heißgetränke : Heisse Matcha", "fr": "Boissons Chaudes : Matcha Chaud", "ru": "Горячие напитки : Горячая матча" } },
-    { "id": "hd_hot_chocolate", "categoryId": "hot_drinks", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "1000118604.jpg", "names": { "ar": "مشروبات ساخنة : شوكولاتة ساخنة", "en": "Hot Drinks : Hot Chocolate", "de": "Heißgetränke : Heisse Schokolade", "fr": "Boissons Chaudes : Chocolat Chaud", "ru": "Горячие напитки : Горячий шоколад" } },
-
-    { "id": "sd_nescafe_can", "categoryId": "soft_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "سوفت درينكس : كانز نسكافيه (متعدد الاطعم)", "en": "Soft Drinks : Nescafe Can (Multi-flavor)", "de": "Softdrinks : Nescafe Dose", "fr": "Boissons Fraîches : Canette Nescafe", "ru": "Напитки : Банка Нескафе" } },
-    { "id": "sd_lipton_can", "categoryId": "soft_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "سوفت درينكس : كانز ليبتون آيس تي (متعدد الاطعم)", "en": "Soft Drinks : Lipton Iced Tea Can (Multi-flavor)", "de": "Softdrinks : Lipton Eistee Dose", "fr": "Boissons Fraîches : Canette Lipton Thé Glacé", "ru": "Напитки : Банка Липтона" } },
-    { "id": "sd_redbull_can", "categoryId": "soft_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "سوفت درينكس : كانز ريد بول (متعدد الاطعم)", "en": "Soft Drinks : Red Bull Can (Multi-flavor)", "de": "Softdrinks : Red Bull Dose", "fr": "Boissons Fraîches : Canette Red Bull", "ru": "Напитки : Банка Ред Булл" } },
-    { "id": "sd_coke_triple", "categoryId": "soft_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "سوفت درينكس : كوكاكولا تريبل زيرو", "en": "Soft Drinks : Coca-Cola Triple Zero", "de": "Softdrinks : Coca-Cola Triple Zero", "fr": "Boissons Fraîches : Coca-Cola Triple Zéro", "ru": "Напитки : Кока-Кола Тройной Зеро" } },
-    { "id": "sd_coke_coffee", "categoryId": "soft_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "سوفت درينكس : كوكاكولا كوفي", "en": "Soft Drinks : Coca-Cola Coffee", "de": "Softdrinks : Coca-Cola Kaffee", "fr": "Boissons Fraîches : Coca-Cola Café", "ru": "Напитки : Кока-Кола Кофе" } },
-    { "id": "sd_pepsi_zero", "categoryId": "soft_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "سوفت درينكس : بيبسي زيرو", "en": "Soft Drinks : Pepsi Zero", "de": "Softdrinks : Pepsi Zero", "fr": "Boissons Fraîches : Pepsi Zéro", "ru": "Напитки : Пепси Зеро" } },
-    { "id": "sd_pringles", "categoryId": "soft_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "سوفت درينكس : برنجلز (متعدد الاطعم)", "en": "Soft Drinks : Pringles (Multi-flavor)", "de": "Softdrinks : Pringles", "fr": "Boissons Fraîches : Pringles", "ru": "Напитки : Принглс" } },
-
-    { "id": "ad_brown_sugar", "categoryId": "asian_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "مشروبات آسيوية : براون شوجر", "en": "Asian Drinks : Brown Sugar Milk Tea", "de": "Asiatische Getränke : Brauner Zucker Milch-Tee", "fr": "Boissons Asiatiques : Thé au Lait Sucre Roux", "ru": "Азиатские напитки : Черный сахар" } },
-    { "id": "ad_milk_tea", "categoryId": "asian_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "مشروبات آسيوية : ميلك تي", "en": "Asian Drinks : Milk Tea", "de": "Asiatische Getränke : Milch-Tee", "fr": "Boissons Asiatiques : Thé au Lait", "ru": "Азиатские напитки : Молочный чай" } },
-    { "id": "ad_tiger_milk_tea", "categoryId": "asian_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "مشروبات آسيوية : تايجر ميلك تي", "en": "Asian Drinks : Tiger Milk Tea", "de": "Asiatische Getränke : Tiger Milch-Tee", "fr": "Boissons Asiatiques : Thé au Lait Tigre", "ru": "Азиатские напитки : Тигровый молочный чай" } },
-    { "id": "ad_taro_milk_tea", "categoryId": "asian_drinks", "special": false, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "مشروبات آسيوية : تارو ميلك تي", "en": "Asian Drinks : Taro Milk Tea", "de": "Asiatische Getränke : Taro Milch-Tee", "fr": "Boissons Asiatiques : Thé au Lait Taro", "ru": "Азиатские напитки : Молочный чай Таро" } },
-
-    { "id": "en_mix_mango", "categoryId": "energy_refresh", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "الطاقة والانتعاش : انرجي ميكس مانجو", "en": "Energy & Refreshment : Energy Mix Mango", "de": "Energie : Energie-Mix Mango", "fr": "Énergie : Mix Énergie Mangue", "ru": "Энергия : Энерджи микс манго" } },
-    { "id": "en_mix_hazelnut", "categoryId": "energy_refresh", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "الطاقة والانتعاش : انرجي ميكس بندق", "en": "Energy & Refreshment : Energy Mix Hazelnut", "de": "Energie : Energie-Mix Haselnuss", "fr": "Énergie : Mix Énergie Noisette", "ru": "Энергия : Энерджи микс фундук" } },
-    { "id": "en_mix_classic", "categoryId": "energy_refresh", "special": true, "priceEGP": 300, "priceEUR": 5, "image": "", "names": { "ar": "الطاقة والانتعاش : انرجي ميكس كلاسيك", "en": "Energy & Refreshment : Energy Mix Classic", "de": "Energie : Energie-Mix Klassisch", "fr": "Énergie : Mix Énergie Classique", "ru": "Энергия : Энерджи микс классик" } }
+    {
+      "id": "ms_mango",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "ميلك شيك : مانجو",
+        "en": "Milkshake : Mango",
+        "de": "Milchshake : Mango",
+        "fr": "Milkshake : Mangue",
+        "ru": "Милкшейк : Манго"
+      }
+    },
+    {
+      "id": "ms_strawberry",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "ميلك شيك : فراولة",
+        "en": "Milkshake : Strawberry",
+        "de": "Milchshake : Erdbeere",
+        "fr": "Milkshake : Fraise",
+        "ru": "Милкшейк : Клубника"
+      }
+    },
+    {
+      "id": "ms_chocolate",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119169.jpg",
+      "names": {
+        "ar": "ميلك شيك : شيكولاتة",
+        "en": "Milkshake : Chocolate",
+        "de": "Milchshake : Schokolade",
+        "fr": "Milkshake : Chocolat",
+        "ru": "Милкшейк : Шоколад"
+      }
+    },
+    {
+      "id": "ms_caramel",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119163.jpg",
+      "names": {
+        "ar": "ميلك شيك : كراميل",
+        "en": "Milkshake : Caramel",
+        "de": "Milchshake : Karamell",
+        "fr": "Milkshake : Caramel",
+        "ru": "Милкшейк : Карамель"
+      }
+    },
+    {
+      "id": "ms_oreo",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119165.jpg",
+      "names": {
+        "ar": "ميلك شيك : اوريو",
+        "en": "Milkshake : Oreo",
+        "de": "Milchshake : Oreo",
+        "fr": "Milkshake : Oreo",
+        "ru": "Милкшейк : Орео"
+      }
+    },
+    {
+      "id": "ms_passion",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "ميلك شيك : باشون فروت",
+        "en": "Milkshake : Passion Fruit",
+        "de": "Milchshake : Maracuja",
+        "fr": "Milkshake : Fruit de la Passion",
+        "ru": "Милкшейк : Маракуйя"
+      }
+    },
+    {
+      "id": "ms_kiwi",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119156.jpg",
+      "names": {
+        "ar": "ميلك شيك : كيوي",
+        "en": "Milkshake : Kiwi",
+        "de": "Milchshake : Kiwi",
+        "fr": "Milkshake : Kiwi",
+        "ru": "Милкшейк : Киви"
+      }
+    },
+    {
+      "id": "ms_pina",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119159.jpg",
+      "names": {
+        "ar": "ميلك شيك : بينا كولادا",
+        "en": "Milkshake : Pina Colada",
+        "de": "Milchshake : Pina Colada",
+        "fr": "Milkshake : Pina Colada",
+        "ru": "Милкшейк : Пина Колада"
+      }
+    },
+    {
+      "id": "ms_pineapple",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "ميلك شيك : أناناس",
+        "en": "Milkshake : Pineapple",
+        "de": "Milchshake : Ananas",
+        "fr": "Milkshake : Ananas",
+        "ru": "Милкшейк : Ананас"
+      }
+    },
+    {
+      "id": "ms_blueberry",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "ميلك شيك : بلوبيري",
+        "en": "Milkshake : Blueberry",
+        "de": "Milchshake : Blaubeere",
+        "fr": "Milkshake : Myrtille",
+        "ru": "Милкшейк : Черника"
+      }
+    },
+    {
+      "id": "ms_mixberry",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "ميلك شيك : ميكس بيري",
+        "en": "Milkshake : Mix Berry",
+        "de": "Milchshake : Beerenmix",
+        "fr": "Milkshake : Fruits Rouges",
+        "ru": "Милкшейк : Микс Ягод"
+      }
+    },
+    {
+      "id": "ms_pistachio",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119166.jpg",
+      "names": {
+        "ar": "ميلك شيك : بستاشيو",
+        "en": "Milkshake : Pistachio",
+        "de": "Milchshake : Pistazie",
+        "fr": "Milkshake : Pistache",
+        "ru": "Милкшейк : Фисташка"
+      }
+    },
+    {
+      "id": "ms_lotus",
+      "categoryId": "milkshake",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119162.jpg",
+      "names": {
+        "ar": "ميلك شيك : لوتس",
+        "en": "Milkshake : Lotus",
+        "de": "Milchshake : Lotus",
+        "fr": "Milkshake : Lotus",
+        "ru": "Милкшейк : Лотус"
+      }
+    },
+    {
+      "id": "ic_pistachio",
+      "categoryId": "iced_coffee",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119145.jpg",
+      "names": {
+        "ar": "آيس كوفي : بستاشيو",
+        "en": "Iced Coffee : Pistachio",
+        "de": "Eiskaffee : Pistazie",
+        "fr": "Café Glacé : Pistache",
+        "ru": "Айс Кофе : Фисташка"
+      }
+    },
+    {
+      "id": "ic_caramel_hazelnut",
+      "categoryId": "iced_coffee",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119151.jpg",
+      "names": {
+        "ar": "آيس كوفي : كراميل بندق",
+        "en": "Iced Coffee : Caramel Hazelnut",
+        "de": "Eiskaffee : Karamell-Haselnuss",
+        "fr": "Café Glacé : Caramel Noisette",
+        "ru": "Айс Кофе : Карамель Фундук"
+      }
+    },
+    {
+      "id": "ic_mocha",
+      "categoryId": "iced_coffee",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119146.jpg",
+      "names": {
+        "ar": "آيس كوفي : آيس موكا",
+        "en": "Iced Coffee : Iced Mocha",
+        "de": "Eiskaffee : Eismokka",
+        "fr": "Café Glacé : Mocha Glacé",
+        "ru": "Айс Кофе : Айс Мокка"
+      }
+    },
+    {
+      "id": "ic_hazelnut",
+      "categoryId": "iced_coffee",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119148.jpg",
+      "names": {
+        "ar": "آيس كوفي : بندق",
+        "en": "Iced Coffee : Hazelnut",
+        "de": "Eiskaffee : Haselnuss",
+        "fr": "Café Glacé : Noisette",
+        "ru": "Айс Кофе : Фундук"
+      }
+    },
+    {
+      "id": "ic_caramel",
+      "categoryId": "iced_coffee",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119144.jpg",
+      "names": {
+        "ar": "آيس كوفي : كراميل",
+        "en": "Iced Coffee : Caramel",
+        "de": "Eiskaffee : Karamell",
+        "fr": "Café Glacé : Caramel",
+        "ru": "Айс Кофе : Карамель"
+      }
+    },
+    {
+      "id": "ic_classic",
+      "categoryId": "iced_coffee",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119147.jpg",
+      "names": {
+        "ar": "آيس كوفي : كلاسيك",
+        "en": "Iced Coffee : Classic",
+        "de": "Eiskaffee : Klassisch",
+        "fr": "Café Glacé : Classique",
+        "ru": "Айс Кофе : Классик"
+      }
+    },
+    {
+      "id": "ic_latte",
+      "categoryId": "iced_coffee",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119150.jpg",
+      "names": {
+        "ar": "آيس كوفي : آيس لاتيه",
+        "en": "Iced Coffee : Iced Latte",
+        "de": "Eiskaffee : Eis-Latte",
+        "fr": "Café Glacé : Latte Glacé",
+        "ru": "Айс Кофе : Айс Латте"
+      }
+    },
+    {
+      "id": "ic_chocolate",
+      "categoryId": "iced_coffee",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119143.jpg",
+      "names": {
+        "ar": "آيس كوفي : شيكولاتة",
+        "en": "Iced Coffee : Chocolate",
+        "de": "Eiskaffee : Schokolade",
+        "fr": "Café Glacé : Chocolat",
+        "ru": "Айс Кофе : Шоколад"
+      }
+    },
+    {
+      "id": "ic_spanish",
+      "categoryId": "iced_coffee",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119149.jpg",
+      "names": {
+        "ar": "آيس كوفي : آيس سبانيش لاتيه",
+        "en": "Iced Coffee : Iced Spanish Latte",
+        "de": "Eiskaffee : Spanischer Eislatte",
+        "fr": "Café Glacé : Latte Espagnol Glacé",
+        "ru": "Айс Кофе : Айс Испанский Латте"
+      }
+    },
+    {
+      "id": "fj_pomegranate",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119177.jpg",
+      "names": {
+        "ar": "عصائر فريش : رمان",
+        "en": "Fresh Juices : Pomegranate",
+        "de": "Frische Säfte : Granatapfel",
+        "fr": "Jus Frais : Grenade",
+        "ru": "Свежие соки : Гранат"
+      }
+    },
+    {
+      "id": "fj_apple",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119176.jpg",
+      "names": {
+        "ar": "عصائر فريش : تفاح",
+        "en": "Fresh Juices : Apple",
+        "de": "Frische Säfte : Apfel",
+        "fr": "Jus Frais : Pomme",
+        "ru": "Свежие соки : Яблоко"
+      }
+    },
+    {
+      "id": "fj_lemon_mint",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119179.jpg",
+      "names": {
+        "ar": "عصائر فريش : ليمون نعناع",
+        "en": "Fresh Juices : Lemon Mint",
+        "de": "Frische Säfte : Zitrone-Minze",
+        "fr": "Jus Frais : Citron Menthe",
+        "ru": "Свежие соки : Лимон Мята"
+      }
+    },
+    {
+      "id": "fj_strawberry",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119173.jpg",
+      "names": {
+        "ar": "عصائر فريش : فراولة",
+        "en": "Fresh Juices : Strawberry",
+        "de": "Frische Säfte : Erdbeere",
+        "fr": "Jus Frais : Fraise",
+        "ru": "Свежие соки : Клубника"
+      }
+    },
+    {
+      "id": "fj_mango",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119172.jpg",
+      "names": {
+        "ar": "عصائر فريش : مانجو",
+        "en": "Fresh Juices : Mango",
+        "de": "Frische Säfte : Mango",
+        "fr": "Jus Frais : Mangue",
+        "ru": "Свежие соки : Манго"
+      }
+    },
+    {
+      "id": "fj_banana_milk",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119174.jpg",
+      "names": {
+        "ar": "عصائر فريش : موز باللبن",
+        "en": "Fresh Juices : Banana with Milk",
+        "de": "Frische Säfte : Banane mit Milch",
+        "fr": "Jus Frais : Banane Lait",
+        "ru": "Свежие соки : Банан с молоком"
+      }
+    },
+    {
+      "id": "fj_watermelon",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119175.jpg",
+      "names": {
+        "ar": "عصائر فريش : بطيخ",
+        "en": "Fresh Juices : Watermelon",
+        "de": "Frische Säfte : Wassermelone",
+        "fr": "Jus Frais : Pastèque",
+        "ru": "Свежие соки : Арбуз"
+      }
+    },
+    {
+      "id": "fj_orange",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119171.jpg",
+      "names": {
+        "ar": "عصائر فريش : برتقال",
+        "en": "Fresh Juices : Orange",
+        "de": "Frische Säfte : Orange",
+        "fr": "Jus Frais : Orange",
+        "ru": "Свежие соки : Апельсин"
+      }
+    },
+    {
+      "id": "fj_cantaloupe",
+      "categoryId": "fresh_juice",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119178.jpg",
+      "names": {
+        "ar": "عصائر فريش : كانتلوب",
+        "en": "Fresh Juices : Cantaloupe",
+        "de": "Frische Säfte : Melone",
+        "fr": "Jus Frais : Melon",
+        "ru": "Свежие соки : Дыня"
+      }
+    },
+    {
+      "id": "fp_small",
+      "categoryId": "fruit_platters",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "اطباق فاكهة فريش : طبق صغير",
+        "en": "Fruit Platters : Small Plate",
+        "de": "Obstteller : Kleiner Teller",
+        "fr": "Assiettes Fruits : Petite Assiette",
+        "ru": "Фруктовые тарелки : Маленькая тарелка"
+      }
+    },
+    {
+      "id": "fp_medium",
+      "categoryId": "fruit_platters",
+      "special": false,
+      "priceEGP": 450,
+      "priceEUR": 7,
+      "image": "",
+      "names": {
+        "ar": "اطباق فاكهة فريش : طبق وسط",
+        "en": "Fruit Platters : Medium Plate",
+        "de": "Obstteller : Mittlerer Teller",
+        "fr": "Assiettes Fruits : Assiette Moyenne",
+        "ru": "Фруктовые тарелки : Средняя тарелка"
+      }
+    },
+    {
+      "id": "fp_large",
+      "categoryId": "fruit_platters",
+      "special": true,
+      "priceEGP": 600,
+      "priceEUR": 10,
+      "image": "",
+      "names": {
+        "ar": "اطباق فاكهة فريش : طبق كبير",
+        "en": "Fruit Platters : Large Plate",
+        "de": "Obstteller : Großer Teller",
+        "fr": "Assiettes Fruits : Grande Assiette",
+        "ru": "Фруктовые тарелки : Большая тарелка"
+      }
+    },
+    {
+      "id": "mc_blueberry",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119187.jpg",
+      "names": {
+        "ar": "الماتشا : بلوبيري",
+        "en": "Matcha : Blueberry",
+        "de": "Matcha : Blaubeere",
+        "fr": "Matcha : Myrtille",
+        "ru": "Матча : Черника"
+      }
+    },
+    {
+      "id": "mc_coconut",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119184.jpg",
+      "names": {
+        "ar": "الماتشا : جوز هند",
+        "en": "Matcha : Coconut",
+        "de": "Matcha : Kokosnuss",
+        "fr": "Matcha : Noix de Coco",
+        "ru": "Матча : Кокос"
+      }
+    },
+    {
+      "id": "mc_mango",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119185.jpg",
+      "names": {
+        "ar": "الماتشا : مانجو",
+        "en": "Matcha : Mango",
+        "de": "Matcha : Mango",
+        "fr": "Matcha : Mangue",
+        "ru": "Матча : Манго"
+      }
+    },
+    {
+      "id": "mc_classic",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119180.jpg",
+      "names": {
+        "ar": "الماتشا : كلاسيك",
+        "en": "Matcha : Classic",
+        "de": "Matcha : Klassisch",
+        "fr": "Matcha : Classique",
+        "ru": "Матча : Классик"
+      }
+    },
+    {
+      "id": "mc_strawberry",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119186.jpg",
+      "names": {
+        "ar": "الماتشا : فراولة",
+        "en": "Matcha : Strawberry",
+        "de": "Matcha : Erdbeere",
+        "fr": "Matcha : Fraise",
+        "ru": "Матча : Клубника"
+      }
+    },
+    {
+      "id": "mc_pistachio",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "الماتشا : بستاشيو",
+        "en": "Matcha : Pistachio",
+        "de": "Matcha : Pistazie",
+        "fr": "Matcha : Pistache",
+        "ru": "Матча : Фисташка"
+      }
+    },
+    {
+      "id": "mc_caramel",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119183.jpg",
+      "names": {
+        "ar": "الماتشا : كراميل",
+        "en": "Matcha : Caramel",
+        "de": "Matcha : Karamell",
+        "fr": "Matcha : Caramel",
+        "ru": "Матча : Карамель"
+      }
+    },
+    {
+      "id": "mc_vanilla",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119182.jpg",
+      "names": {
+        "ar": "الماتشا : فانيليا",
+        "en": "Matcha : Vanilla",
+        "de": "Matcha : Vanille",
+        "fr": "Matcha : Vanille",
+        "ru": "Матча : Ваниль"
+      }
+    },
+    {
+      "id": "mc_espresso",
+      "categoryId": "matcha",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119181.jpg",
+      "names": {
+        "ar": "الماتشا : اسبريسو",
+        "en": "Matcha : Espresso",
+        "de": "Matcha : Espresso",
+        "fr": "Matcha : Expresso",
+        "ru": "Матча : Эспрессо"
+      }
+    },
+    {
+      "id": "fr_caramel_cookies",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : كراميل كوكيز",
+        "en": "Frappe : Caramel Cookies",
+        "de": "Frappé : Karamell-Cookies",
+        "fr": "Frappé : Cookies Caramel",
+        "ru": "Фраппе : Карамель Печенье"
+      }
+    },
+    {
+      "id": "fr_oreo",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : اوريو",
+        "en": "Frappe : Oreo",
+        "de": "Frappé : Oreo",
+        "fr": "Frappé : Oreo",
+        "ru": "Фраппе : Орео"
+      }
+    },
+    {
+      "id": "fr_hazelnut",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : بندق",
+        "en": "Frappe : Hazelnut",
+        "de": "Frappé : Haselnuss",
+        "fr": "Frappé : Noisette",
+        "ru": "Фраппе : Фундук"
+      }
+    },
+    {
+      "id": "fr_lotus",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : لوتس",
+        "en": "Frappe : Lotus",
+        "de": "Frappé : Lotus",
+        "fr": "Frappé : Lotus",
+        "ru": "Фраппе : Лотус"
+      }
+    },
+    {
+      "id": "fr_classic",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : كلاسيك",
+        "en": "Frappe : Classic",
+        "de": "Frappé : Klassisch",
+        "fr": "Frappé : Classique",
+        "ru": "Фраппе : Классик"
+      }
+    },
+    {
+      "id": "fr_caramel",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : كراميل",
+        "en": "Frappe : Caramel",
+        "de": "Frappé : Karamell",
+        "fr": "Frappé : Caramel",
+        "ru": "Фраппе : Карамель"
+      }
+    },
+    {
+      "id": "fr_choc_hazelnut",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : شيكولاتة بندق",
+        "en": "Frappe : Chocolate Hazelnut",
+        "de": "Frappé : Schoko-Haselnuss",
+        "fr": "Frappé : Chocolat Noisette",
+        "ru": "Фраппе : Шоколад Фундук"
+      }
+    },
+    {
+      "id": "fr_chocolate",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : شيكولاتة",
+        "en": "Frappe : Chocolate",
+        "de": "Frappé : Schokolade",
+        "fr": "Frappé : Chocolat",
+        "ru": "Фраппе : Шоколад"
+      }
+    },
+    {
+      "id": "fr_pistachio",
+      "categoryId": "frappe",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "فرابيه : بستاشيو",
+        "en": "Frappe : Pistachio",
+        "de": "Frappé : Pistazie",
+        "fr": "Frappé : Pistache",
+        "ru": "Фраппе : Фисташка"
+      }
+    },
+    {
+      "id": "it_peach",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118685.jpg",
+      "names": {
+        "ar": "آيس تي : خوخ",
+        "en": "Iced Tea : Peach",
+        "de": "Eistee : Pfirsich",
+        "fr": "Thé Glacé : Pêche",
+        "ru": "Айс Ти : Персик"
+      }
+    },
+    {
+      "id": "it_passion",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118692.jpg",
+      "names": {
+        "ar": "آيس تي : باشون فروت",
+        "en": "Iced Tea : Passion Fruit",
+        "de": "Eistee : Maracuja",
+        "fr": "Thé Glacé : Fruit de la Passion",
+        "ru": "Айс Ти : Маракуйя"
+      }
+    },
+    {
+      "id": "it_orange",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118690.jpg",
+      "names": {
+        "ar": "آيس تي : برتقال",
+        "en": "Iced Tea : Orange",
+        "de": "Eistee : Orange",
+        "fr": "Thé Glacé : Orange",
+        "ru": "Айс Ти : Апельсин"
+      }
+    },
+    {
+      "id": "it_strawberry",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118682.jpg",
+      "names": {
+        "ar": "آيس تي : فراولة",
+        "en": "Iced Tea : Strawberry",
+        "de": "Eistee : Erdbeere",
+        "fr": "Thé Glacé : Fraise",
+        "ru": "Айс Ти : Клубника"
+      }
+    },
+    {
+      "id": "it_blueberry",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118688.jpg",
+      "names": {
+        "ar": "آيس تي : بلوبيري",
+        "en": "Iced Tea : Blueberry",
+        "de": "Eistee : Blaubeere",
+        "fr": "Thé Glacé : Myrtille",
+        "ru": "Айс Ти : Черника"
+      }
+    },
+    {
+      "id": "it_mango",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118687.jpg",
+      "names": {
+        "ar": "آيس تي : مانجو",
+        "en": "Iced Tea : Mango",
+        "de": "Eistee : Mango",
+        "fr": "Thé Glacé : Mangue",
+        "ru": "Айс Ти : Манго"
+      }
+    },
+    {
+      "id": "it_classic",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118691.jpg",
+      "names": {
+        "ar": "آيس تي : كلاسيك",
+        "en": "Iced Tea : Classic",
+        "de": "Eistee : Klassisch",
+        "fr": "Thé Glacé : Classique",
+        "ru": "Айс Ти : Классик"
+      }
+    },
+    {
+      "id": "it_apple",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118693.jpg",
+      "names": {
+        "ar": "آيس تي : تفاح",
+        "en": "Iced Tea : Apple",
+        "de": "Eistee : Apfel",
+        "fr": "Thé Glacé : Pomme",
+        "ru": "Айс Ти : Яблоко"
+      }
+    },
+    {
+      "id": "it_lemon",
+      "categoryId": "iced_tea",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118683.jpg",
+      "names": {
+        "ar": "آيس تي : ليمون",
+        "en": "Iced Tea : Lemon",
+        "de": "Eistee : Zitrone",
+        "fr": "Thé Glacé : Citron",
+        "ru": "Айс Ти : Лимон"
+      }
+    },
+    {
+      "id": "sm_lemon_mint",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118660_2.jpg",
+      "names": {
+        "ar": "سموزي : ليمون نعناع",
+        "en": "Smoothie : Lemon Mint",
+        "de": "Smoothie : Zitrone-Minze",
+        "fr": "Smoothie : Citron Menthe",
+        "ru": "Смузи : Лимон Мята"
+      }
+    },
+    {
+      "id": "sm_banana",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118657_2.jpg",
+      "names": {
+        "ar": "سموزي : موز",
+        "en": "Smoothie : Banana",
+        "de": "Smoothie : Banane",
+        "fr": "Smoothie : Banane",
+        "ru": "Смузи : Банан"
+      }
+    },
+    {
+      "id": "sm_mango",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سموزي : مانجو",
+        "en": "Smoothie : Mango",
+        "de": "Smoothie : Mango",
+        "fr": "Smoothie : Mangue",
+        "ru": "Смузи : Манго"
+      }
+    },
+    {
+      "id": "sm_watermelon",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118654_2.jpg",
+      "names": {
+        "ar": "سموزي : بطيخ",
+        "en": "Smoothie : Watermelon",
+        "de": "Smoothie : Wassermelone",
+        "fr": "Smoothie : Pastèque",
+        "ru": "Смузи : Арбуз"
+      }
+    },
+    {
+      "id": "sm_cantaloupe",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118659_2.jpg",
+      "names": {
+        "ar": "سموزي : كانتلوب",
+        "en": "Smoothie : Cantaloupe",
+        "de": "Smoothie : Melone",
+        "fr": "Smoothie : Melon",
+        "ru": "Смузи : Дыня"
+      }
+    },
+    {
+      "id": "sm_passion",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118661_2.jpg",
+      "names": {
+        "ar": "سموزي : باشون فروت",
+        "en": "Smoothie : Passion Fruit",
+        "de": "Smoothie : Maracuja",
+        "fr": "Smoothie : Fruit de la Passion",
+        "ru": "Смузи : Маракуйя"
+      }
+    },
+    {
+      "id": "sm_strawberry",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سموزي : فراولة",
+        "en": "Smoothie : Strawberry",
+        "de": "Smoothie : Erdbeere",
+        "fr": "Smoothie : Fraise",
+        "ru": "Смузи : Клубника"
+      }
+    },
+    {
+      "id": "sm_blueberry",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سموزي : بلوبيري",
+        "en": "Smoothie : Blueberry",
+        "de": "Smoothie : Blaubeere",
+        "fr": "Smoothie : Myrtille",
+        "ru": "Смузи : Черника"
+      }
+    },
+    {
+      "id": "sm_peach",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118658_2.jpg",
+      "names": {
+        "ar": "سموزي : خوخ",
+        "en": "Smoothie : Peach",
+        "de": "Smoothie : Pfirsich",
+        "fr": "Smoothie : Pêche",
+        "ru": "Смузи : Персик"
+      }
+    },
+    {
+      "id": "sm_pineapple",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سموزي : أناناس",
+        "en": "Smoothie : Pineapple",
+        "de": "Smoothie : Ananas",
+        "fr": "Smoothie : Ananas",
+        "ru": "Смузи : Ананас"
+      }
+    },
+    {
+      "id": "sm_kiwi_lemon_mint",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119155.jpg",
+      "names": {
+        "ar": "سموزي : كيوي ليمون نعناع",
+        "en": "Smoothie : Kiwi Lemon Mint",
+        "de": "Smoothie : Kiwi-Zitrone-Minze",
+        "fr": "Smoothie : Kiwi Citron Menthe",
+        "ru": "Смузи : Киви Лимон Мята"
+      }
+    },
+    {
+      "id": "sm_peach_orange",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119154.jpg",
+      "names": {
+        "ar": "سموزي : خوخ برتقال",
+        "en": "Smoothie : Peach Orange",
+        "de": "Smoothie : Pfirsich-Orange",
+        "fr": "Smoothie : Pêche Orange",
+        "ru": "Смузи : Персик Апельсин"
+      }
+    },
+    {
+      "id": "sm_mixberry",
+      "categoryId": "smoothie",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119157.jpg",
+      "names": {
+        "ar": "سموزي : ميكس بيري",
+        "en": "Smoothie : Mixberry",
+        "de": "Smoothie : Beeren-Mix-Smoothie",
+        "fr": "Smoothie : Smoothie aux Fruits Rouges",
+        "ru": "Смузи : Миксбери"
+      }
+    },
+    {
+      "id": "sm_taste_of_love",
+      "categoryId": "smoothie",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119152.jpg",
+      "names": {
+        "ar": "سموزي : تيست اوف لوف",
+        "en": "Smoothie : Taste Of Love",
+        "de": "Smoothie : Geschmack der Liebe",
+        "fr": "Smoothie : Goût de l'Amour",
+        "ru": "Смузи : Вкус любви"
+      }
+    },
+    {
+      "id": "mj_classic",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119189.jpg",
+      "names": {
+        "ar": "موهيتو : كلاسيك",
+        "en": "Mojito : Classic",
+        "de": "Mojito : Klassisch",
+        "fr": "Mojito : Classique",
+        "ru": "Мохито : Классик"
+      }
+    },
+    {
+      "id": "mj_orange",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118650_2.jpg",
+      "names": {
+        "ar": "موهيتو : برتقال",
+        "en": "Mojito : Orange",
+        "de": "Mojito : Orange",
+        "fr": "Mojito : Orange",
+        "ru": "Мохито : Апельсин"
+      }
+    },
+    {
+      "id": "mj_mango",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119190.jpg",
+      "names": {
+        "ar": "موهيتو : مانجو",
+        "en": "Mojito : Mango",
+        "de": "Mojito : Mango",
+        "fr": "Mojito : Mangue",
+        "ru": "Мохито : Манго"
+      }
+    },
+    {
+      "id": "mj_strawberry",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119191.jpg",
+      "names": {
+        "ar": "موهيتو : فراولة",
+        "en": "Mojito : Strawberry",
+        "de": "Mojito : Erdbeere",
+        "fr": "Mojito : Fraise",
+        "ru": "Мохито : Клубника"
+      }
+    },
+    {
+      "id": "mj_peach",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118649_2.jpg",
+      "names": {
+        "ar": "موهيتو : خوخ",
+        "en": "Mojito : Peach",
+        "de": "Mojito : Pfirsich",
+        "fr": "Mojito : Pêche",
+        "ru": "Мохито : Персик"
+      }
+    },
+    {
+      "id": "mj_blueberry",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119192.jpg",
+      "names": {
+        "ar": "موهيتو : بلوبيري",
+        "en": "Mojito : Blueberry",
+        "de": "Mojito : Blaubeere",
+        "fr": "Mojito : Myrtille",
+        "ru": "Мохито : Черника"
+      }
+    },
+    {
+      "id": "mj_pineapple",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "موهيتو : أناناس",
+        "en": "Mojito : Pineapple",
+        "de": "Mojito : Ananas",
+        "fr": "Mojito : Ananas",
+        "ru": "Мохито : Ананас"
+      }
+    },
+    {
+      "id": "mj_kiwi",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "موهيتو : كيوي",
+        "en": "Mojito : Kiwi",
+        "de": "Mojito : Kiwi",
+        "fr": "Mojito : Kiwi",
+        "ru": "Мохито : Киви"
+      }
+    },
+    {
+      "id": "mj_blue_ocean",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118648_2.jpg",
+      "names": {
+        "ar": "موهيتو : بلو اوشن",
+        "en": "Mojito : Blue Ocean",
+        "de": "Mojito : Blue Ocean",
+        "fr": "Mojito : Bleu Océan",
+        "ru": "Мохито : Голубой Океан"
+      }
+    },
+    {
+      "id": "mj_red_bull",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "موهيتو : ريد بول",
+        "en": "Mojito : Red Bull",
+        "de": "Mojito : Red Bull",
+        "fr": "Mojito : Red Bull",
+        "ru": "Мохито : Ред Булл"
+      }
+    },
+    {
+      "id": "mj_red_sea",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119153.jpg",
+      "names": {
+        "ar": "موهيتو : ريد سي",
+        "en": "Mojito : Red Sea Mojito",
+        "de": "Mojito : Rotes Meer Mojito",
+        "fr": "Mojito : Mojito de la Mer Rouge",
+        "ru": "Мохито : Мохито Красное море"
+      }
+    },
+    {
+      "id": "mj_winter_light",
+      "categoryId": "mojito",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119158.jpg",
+      "names": {
+        "ar": "موهيتو : وينتر لايت",
+        "en": "Mojito : Winter light Mojito",
+        "de": "Mojito : Winterlicht-Mojito",
+        "fr": "Mojito : Mojito Lumière d'Hiver",
+        "ru": "Мохито : Зимний свет"
+      }
+    },
+    {
+      "id": "hd_turkish",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 200,
+      "priceEUR": 3,
+      "image": "1000118663.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : قهوة تركي",
+        "en": "Hot Drinks : Turkish Coffee",
+        "de": "Heißgetränke : Türkischer Kaffee",
+        "fr": "Boissons Chaudes : Café Turc",
+        "ru": "Горячие напитки : Турецкий кофе"
+      }
+    },
+    {
+      "id": "hd_french",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118664.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : قهوة فرنساوي",
+        "en": "Hot Drinks : French Coffee",
+        "de": "Heißgetränke : Französischer Kaffee",
+        "fr": "Boissons Chaudes : Café Français",
+        "ru": "Горячие напитки : Французский кофе"
+      }
+    },
+    {
+      "id": "hd_spanish_latte",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118668.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : سبانيش لاتيه",
+        "en": "Hot Drinks : Spanish Latte",
+        "de": "Heißgetränke : Spanischer Latte",
+        "fr": "Boissons Chaudes : Latte Espagnol",
+        "ru": "Горячие напитки : Испанский латте"
+      }
+    },
+    {
+      "id": "hd_pistachio_latte",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118666.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : بستاشيو لاتيه",
+        "en": "Hot Drinks : Pistachio Latte",
+        "de": "Heißgetränke : Pistazien Latte",
+        "fr": "Boissons Chaudes : Latte Pistache",
+        "ru": "Горячие напитки : Фисташковый латте"
+      }
+    },
+    {
+      "id": "hd_double_macchiato",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118669.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : دبل ميكاتو",
+        "en": "Hot Drinks : Double Macchiato",
+        "de": "Heißgetränke : Doppelter Macchiato",
+        "fr": "Boissons Chaudes : Double Macchiato",
+        "ru": "Горячие напитки : Двойной маккиато"
+      }
+    },
+    {
+      "id": "hd_latte",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118665.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : لاتيه",
+        "en": "Hot Drinks : Caffè Latte",
+        "de": "Heißgetränke : Caffè Latte",
+        "fr": "Boissons Chaudes : Caffè Latte",
+        "ru": "Горячие напитки : Латте"
+      }
+    },
+    {
+      "id": "hd_cappuccino",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118667.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : كابتشينو",
+        "en": "Hot Drinks : Cappuccino",
+        "de": "Heißgetränke : Cappuccino",
+        "fr": "Boissons Chaudes : Cappuccino",
+        "ru": "Горячие напитки : Капучино"
+      }
+    },
+    {
+      "id": "hd_american",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118671.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : امريكان كوفي",
+        "en": "Hot Drinks : American Coffee",
+        "de": "Heißgetränke : Amerikanischer Kaffee",
+        "fr": "Boissons Chaudes : Café Américain",
+        "ru": "Горячие напитки : Американский кофе"
+      }
+    },
+    {
+      "id": "hd_caramel_latte",
+      "categoryId": "hot_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000118670.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : لاتيه كراميل",
+        "en": "Hot Drinks : Caramel Latte",
+        "de": "Heißgetränke : Karamell Latte",
+        "fr": "Boissons Chaudes : Latte Caramel",
+        "ru": "Горячие напитки : Карамельный латте"
+      }
+    },
+    {
+      "id": "hd_hot_matcha",
+      "categoryId": "hot_drinks",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119161.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : هوت ماتشا",
+        "en": "Hot Drinks : Hot Matcha",
+        "de": "Heißgetränke : Heisse Matcha",
+        "fr": "Boissons Chaudes : Matcha Chaud",
+        "ru": "Горячие напитки : Горячая матча"
+      }
+    },
+    {
+      "id": "hd_hot_chocolate",
+      "categoryId": "hot_drinks",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "1000119160.jpg",
+      "names": {
+        "ar": "مشروبات ساخنة : شوكولاتة ساخنة",
+        "en": "Hot Drinks : Hot Chocolate",
+        "de": "Heißgetränke : Heisse Schokolade",
+        "fr": "Boissons Chaudes : Chocolat Chaud",
+        "ru": "Горячие напитки : Горячий шоколад"
+      }
+    },
+    {
+      "id": "sd_nescafe_can",
+      "categoryId": "soft_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سوفت درينكس : كانز نسكافيه (متعدد الاطعم)",
+        "en": "Soft Drinks : Nescafe Can (Multi-flavor)",
+        "de": "Softdrinks : Nescafe Dose",
+        "fr": "Boissons Fraîches : Canette Nescafe",
+        "ru": "Напитки : Банка Нескафе"
+      }
+    },
+    {
+      "id": "sd_lipton_can",
+      "categoryId": "soft_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سوفت درينكس : كانز ليبتون آيس تي (متعدد الاطعم)",
+        "en": "Soft Drinks : Lipton Iced Tea Can (Multi-flavor)",
+        "de": "Softdrinks : Lipton Eistee Dose",
+        "fr": "Boissons Fraîches : Canette Lipton Thé Glacé",
+        "ru": "Напитки : Банка Липтона"
+      }
+    },
+    {
+      "id": "sd_redbull_can",
+      "categoryId": "soft_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سوفت درينكس : كانز ريد بول (متعدد الاطعم)",
+        "en": "Soft Drinks : Red Bull Can (Multi-flavor)",
+        "de": "Softdrinks : Red Bull Dose",
+        "fr": "Boissons Fraîches : Canette Red Bull",
+        "ru": "Напитки : Банка Ред Булл"
+      }
+    },
+    {
+      "id": "sd_coke_triple",
+      "categoryId": "soft_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سوفت درينكس : كوكاكولا تريبل زيرو",
+        "en": "Soft Drinks : Coca-Cola Triple Zero",
+        "de": "Softdrinks : Coca-Cola Triple Zero",
+        "fr": "Boissons Fraîches : Coca-Cola Triple Zéro",
+        "ru": "Напитки : Кока-Кола Тройной Зеро"
+      }
+    },
+    {
+      "id": "sd_coke_coffee",
+      "categoryId": "soft_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سوفت درينكس : كوكاكولا كوفي",
+        "en": "Soft Drinks : Coca-Cola Coffee",
+        "de": "Softdrinks : Coca-Cola Kaffee",
+        "fr": "Boissons Fraîches : Coca-Cola Café",
+        "ru": "Напитки : Кока-Кола Кофе"
+      }
+    },
+    {
+      "id": "sd_pepsi_zero",
+      "categoryId": "soft_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سوفت درينكس : بيبسي زيرو",
+        "en": "Soft Drinks : Pepsi Zero",
+        "de": "Softdrinks : Pepsi Zero",
+        "fr": "Boissons Fraîches : Pepsi Zéro",
+        "ru": "Напитки : Пепси Зеро"
+      }
+    },
+    {
+      "id": "sd_pringles",
+      "categoryId": "soft_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "سوفت درينكس : برنجلز (متعدد الاطعم)",
+        "en": "Soft Drinks : Pringles (Multi-flavor)",
+        "de": "Softdrinks : Pringles",
+        "fr": "Boissons Fraîches : Pringles",
+        "ru": "Напитки : Принглс"
+      }
+    },
+    {
+      "id": "ad_brown_sugar",
+      "categoryId": "asian_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "مشروبات آسيوية : براون شوجر",
+        "en": "Asian Drinks : Brown Sugar Milk Tea",
+        "de": "Asiatische Getränke : Brauner Zucker Milch-Tee",
+        "fr": "Boissons Asiatiques : Thé au Lait Sucre Roux",
+        "ru": "Азиатские напитки : Черный сахар"
+      }
+    },
+    {
+      "id": "ad_milk_tea",
+      "categoryId": "asian_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "مشروبات آسيوية : ميلك تي",
+        "en": "Asian Drinks : Milk Tea",
+        "de": "Asiatische Getränke : Milch-Tee",
+        "fr": "Boissons Asiatiques : Thé au Lait",
+        "ru": "Азиатские напитки : Молочный чай"
+      }
+    },
+    {
+      "id": "ad_tiger_milk_tea",
+      "categoryId": "asian_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "مشروبات آسيوية : تايجر ميلك تي",
+        "en": "Asian Drinks : Tiger Milk Tea",
+        "de": "Asiatische Getränke : Tiger Milch-Tee",
+        "fr": "Boissons Asiatiques : Thé au Lait Tigre",
+        "ru": "Азиатские напитки : Тигровый молочный чай"
+      }
+    },
+    {
+      "id": "ad_taro_milk_tea",
+      "categoryId": "asian_drinks",
+      "special": false,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "مشروبات آسيوية : تارو ميلك تي",
+        "en": "Asian Drinks : Taro Milk Tea",
+        "de": "Asiatische Getränke : Taro Milch-Tee",
+        "fr": "Boissons Asiatiques : Thé au Lait Taro",
+        "ru": "Азиатские напитки : Молочный чай Таро"
+      }
+    },
+    {
+      "id": "en_mix_mango",
+      "categoryId": "energy_refresh",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "الطاقة والانتعاش : انرجي ميكس مانجو",
+        "en": "Energy & Refreshment : Energy Mix Mango",
+        "de": "Energie : Energie-Mix Mango",
+        "fr": "Énergie : Mix Énergie Mangue",
+        "ru": "Энергия : Энерджи микс манго"
+      }
+    },
+    {
+      "id": "en_mix_hazelnut",
+      "categoryId": "energy_refresh",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "الطاقة والانتعاش : انرجي ميكس بندق",
+        "en": "Energy & Refreshment : Energy Mix Hazelnut",
+        "de": "Energie : Energie-Mix Haselnuss",
+        "fr": "Énergie : Mix Énergie Noisette",
+        "ru": "Энергия : Энерджи микс фундук"
+      }
+    },
+    {
+      "id": "en_mix_classic",
+      "categoryId": "energy_refresh",
+      "special": true,
+      "priceEGP": 300,
+      "priceEUR": 5,
+      "image": "",
+      "names": {
+        "ar": "الطاقة والانتعاش : انرجي ميكس كلاسيك",
+        "en": "Energy & Refreshment : Energy Mix Classic",
+        "de": "Energie : Energie-Mix Klassisch",
+        "fr": "Énergie : Mix Énergie Classique",
+        "ru": "Энергия : Энерджи микс классик"
+      }
+    }
   ]
 };
 </script>
