@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const merged = INITIAL_MENU_DATA.items.map(base => {
       const saved = savedById.get(base.id);
       if (!saved) return base;
-      return { ...base, ...saved, image: (saved.image && String(saved.image).trim()) ? saved.image : (base.image || '') };
+      return { ...base, ...saved, image: (base.image && String(base.image).trim()) ? base.image : ((saved.image && String(saved.image).trim()) ? saved.image : '') };
     });
     const builtInIds = new Set(INITIAL_MENU_DATA.items.map(item => item.id));
     savedItems.forEach(item => { if (!builtInIds.has(item.id)) merged.push(item); });
@@ -887,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="item-card ${item.special ? 'special-item' : ''}" data-id="${item.id}">
         ${item.special ? `<span class="special-ribbon">★ BEST</span>` : ''}
         <div class="item-thumb">
-          <img src="${item.image || makeDrinkImage(getItemTitle(item), item.categoryId)}" alt="">
+          <img src="${item.image || makeDrinkImage(getItemTitle(item), item.categoryId)}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${makeDrinkImage(getItemTitle(item), item.categoryId)}'">
         </div>
         <div class="item-name">${getItemTitle(item)}</div>
         <div class="item-price-tag">${formatMoney(getUnitPrice(item))}</div>
