@@ -720,12 +720,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const CURRENCY_SYMBOLS = { EGP: 'EGP', EUR: '€', USD: '$', GBP: '£' };
 
   const savedContact = JSON.parse(localStorage.getItem('fp_public_contact_v6') || 'null');
+  // Merge updated built-in menu data with this device's saved edits.
+  // Keep saved names/prices/categories, but restore any newly supplied image
+  // when an older local copy has an empty image field.
+  const savedItems = JSON.parse(localStorage.getItem('fp_public_items_v6') || 'null');
+  const mergedItems = (() => {
+    if (!Array.isArray(savedItems)) return INITIAL_MENU_DATA.items;
+    const savedById = new Map(savedItems.map(item => [item.id, item]));
+    const merged = INITIAL_MENU_DATA.items.map(base => {
+      const saved = savedById.get(base.id);
+      if (!saved) return base;
+      return { ...base, ...saved, image: (saved.image && String(saved.image).trim()) ? saved.image : (base.image || '') };
+    });
+    const builtInIds = new Set(INITIAL_MENU_DATA.items.map(item => item.id));
+    savedItems.forEach(item => { if (!builtInIds.has(item.id)) merged.push(item); });
+    return merged;
+  })();
   let menuState = {
     lang: localStorage.getItem('fp_lang_v6') || 'en',
     currency: localStorage.getItem('fp_currency_v6') || 'EGP',
     contact: savedContact || INITIAL_MENU_DATA.contact || { whatsapp: "", phones: "", address: "", social: "" },
     categories: JSON.parse(localStorage.getItem('fp_public_cats_v6')) || INITIAL_MENU_DATA.categories,
-    items: JSON.parse(localStorage.getItem('fp_public_items_v6')) || INITIAL_MENU_DATA.items,
+    items: mergedItems,
     cart: [],
     selectedCat: 'all',
     searchQuery: '',
