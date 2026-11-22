@@ -83,11 +83,29 @@
   }
 
   .brand-logo-wrap svg, .brand-logo-wrap img {
-    height: 26px;
-    width: auto;
+    height: 32px;
+    width: 32px;
+    object-fit: cover;
     border-radius: 6px;
     border: 1px solid var(--border-gold);
     display: block;
+  }
+
+  .home-brand {
+    width: 100%;
+    min-height: 126px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 0 5px;
+    flex-shrink: 0;
+  }
+  .home-brand img {
+    display: block;
+    width: 118px;
+    height: 118px;
+    object-fit: contain;
+    border-radius: 10px;
   }
 
   .brand-title {
@@ -458,14 +476,7 @@
     <header class="app-header">
       <div class="header-top">
         <div class="brand-box">
-          <div id="headerLogoContainer" class="brand-logo-wrap"><svg viewBox="0 0 220 84" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="g3d" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#aa771c"></stop><stop offset="30%" stop-color="#fcf6ba"></stop>
-      <stop offset="60%" stop-color="#d4af37"></stop><stop offset="100%" stop-color="#996515"></stop></linearGradient></defs>
-      <rect width="220" height="84" rx="10" fill="#151922"></rect>
-      <text x="24" y="60" font-family="Georgia, serif" font-weight="900" font-size="34" fill="url(#g3d)">FRESHLY</text>
-      <text x="95" y="73" font-family="sans-serif" font-weight="800" font-size="8" letter-spacing="1" fill="url(#g3d)">PREMIER BEVERIDGE CO</text>
-    </svg></div>
+          <div id="headerLogoContainer" class="brand-logo-wrap"><img src="images/freshly_logo.png" alt="FRESHLY &amp; PREMIER"></div>
           <div>
             <div class="brand-title">FRESHLY &amp; PREMIER</div>
             <div class="brand-sub">PREMIER BEVERIDGE CO</div>
@@ -512,6 +523,9 @@
 
     <!-- Main Workspace -->
     <main class="main-content">
+      <section class="home-brand" aria-label="FRESHLY &amp; PREMIER">
+        <img src="images/freshly_logo.png" alt="FRESHLY - PREMIER BEVERIDGE CO" fetchpriority="high">
+      </section>
       <div>
         <input type="text" id="menuSearchInput" class="input-field" data-i18n-placeholder="searchPlaceholder" placeholder="ابحث عن مشروب أو صنف...">
       </div>
@@ -802,15 +816,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderLogos() {
-    const defaultLogo = `<svg viewBox="0 0 220 84" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="g3d" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#aa771c"/><stop offset="30%" stop-color="#fcf6ba"/>
-      <stop offset="60%" stop-color="#d4af37"/><stop offset="100%" stop-color="#996515"/></linearGradient></defs>
-      <rect width="220" height="84" rx="10" fill="#151922"/>
-      <text x="24" y="60" font-family="Georgia, serif" font-weight="900" font-size="34" fill="url(#g3d)">FRESHLY</text>
-      <text x="95" y="73" font-family="sans-serif" font-weight="800" font-size="8" letter-spacing="1" fill="url(#g3d)">PREMIER BEVERIDGE CO</text>
-    </svg>`;
-    document.getElementById('headerLogoContainer').innerHTML = defaultLogo;
+    document.getElementById('headerLogoContainer').innerHTML =
+      '<img src="images/freshly_logo.png" alt="FRESHLY &amp; PREMIER">';
   }
 
   function renderQRWidgets() {
